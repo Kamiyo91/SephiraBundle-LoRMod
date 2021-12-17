@@ -1,18 +1,15 @@
-﻿using HarmonyLib;
-using LOR_DiceSystem;
-using SephiraBundle_Se21341.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using HarmonyLib;
+using LOR_DiceSystem;
+using SephiraBundle_Se21341.Models;
 using SephiraBundle_Se21341.Util;
 using TMPro;
 using UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SephiraBundle_Se21341.Harmony
 {
@@ -65,6 +62,7 @@ namespace SephiraBundle_Se21341.Harmony
             SephiraUtil.AddLocalize();
             SephiraUtil.RemoveError();
         }
+
         public static void BookXmlInfo_GetThumbSprite(BookXmlInfo __instance, ref Sprite __result)
         {
             if (__instance.id.packageId != ModParameters.PackageId) return;
@@ -104,6 +102,7 @@ namespace SephiraBundle_Se21341.Harmony
                     return;
             }
         }
+
         public static void BookModel_SetXmlInfo(BookModel __instance, BookXmlInfo ____classInfo,
             ref List<DiceCardXmlInfo> ____onlyCards)
         {
@@ -111,8 +110,10 @@ namespace SephiraBundle_Se21341.Harmony
                 ____onlyCards.AddRange(____classInfo.EquipEffect.OnlyCard.Select(id =>
                     ItemXmlDataList.instance.GetCardItem(new LorId(ModParameters.PackageId, id))));
         }
+
         [HarmonyPriority(0)]
-        public static void UnitDataModel_EquipBook(UnitDataModel __instance, ref bool __state, BookModel ____bookItem, ref BookModel newBook, bool isEnemySetting,
+        public static void UnitDataModel_EquipBook(UnitDataModel __instance, ref bool __state, BookModel ____bookItem,
+            ref BookModel newBook, bool isEnemySetting,
             bool force)
         {
             if (force) return;
@@ -124,6 +125,7 @@ namespace SephiraBundle_Se21341.Harmony
                 newBook = Singleton<BookInventoryModel>.Instance.GetBlackSilenceBook();
                 return;
             }
+
             if (newBook != null && newBook.ClassInfo.id.packageId == ModParameters.PackageId &&
                 ModParameters.DynamicNames.ContainsKey(newBook.ClassInfo.id.id))
             {
@@ -134,6 +136,7 @@ namespace SephiraBundle_Se21341.Harmony
                 __instance.SetTempName(ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals(name)).Value.Name);
                 return;
             }
+
             if (__instance.bookItem.ClassInfo.id.packageId == ModParameters.PackageId &&
                 ModParameters.DynamicNames.ContainsKey(__instance.bookItem.ClassInfo.id.id))
             {
@@ -141,35 +144,44 @@ namespace SephiraBundle_Se21341.Harmony
                 __instance.customizeData.SetCustomData(true);
                 return;
             }
-            if (newBook != null && (newBook.ClassInfo.id.packageId == ModParameters.PackageId || !newBook.IsWorkshop) && __instance.isSephirah && (__instance.OwnerSephirah == SephirahType.Binah || __instance.OwnerSephirah == SephirahType.Keter))
+
+            if (newBook != null && (newBook.ClassInfo.id.packageId == ModParameters.PackageId || !newBook.IsWorkshop) &&
+                __instance.isSephirah && (__instance.OwnerSephirah == SephirahType.Binah ||
+                                          __instance.OwnerSephirah == SephirahType.Keter))
             {
                 newBook = ____bookItem;
                 __state = false;
                 return;
             }
+
             if (__instance.isSephirah && __instance.OwnerSephirah == SephirahType.Binah)
                 __instance.customizeData.SetCustomData(true);
             __state = true;
         }
-        public static void UnitDataModel_EquipBook_Postfix(UnitDataModel __instance, ref bool __state, ref bool __result)
+
+        public static void UnitDataModel_EquipBook_Postfix(UnitDataModel __instance, ref bool __state,
+            ref bool __result)
         {
             if (__state) return;
             __result = false;
-
         }
+
         public static void TextDataModel_InitTextData(string currentLanguage)
         {
             ModParameters.Language = currentLanguage;
             SephiraUtil.AddLocalize();
         }
+
         public static void UnitDataModel_IsBinahChangeItemLock(ref bool __result)
         {
             __result = false;
         }
+
         public static void UnitDataModel_IsBlackSilenceChangeItemLock(ref bool __result)
         {
             __result = false;
         }
+
         public static bool UILibrarianAppearanceInfoPanel_OnClickCustomizeButton(
             UILibrarianAppearanceInfoPanel __instance)
         {
@@ -179,13 +191,18 @@ namespace SephiraBundle_Se21341.Harmony
                  !LibraryModel.Instance.IsBlackSilenceLockedInLibrary()))
             {
                 UIAlarmPopup.instance.SetAlarmText(ModParameters.EffectTexts
-                    .FirstOrDefault(x => x.Key.Equals(ModParameters.SephirahError.FirstOrDefault(y => __instance.unitData.OwnerSephirah == y.Key).Value)).Value.Desc);
+                    .FirstOrDefault(x =>
+                        x.Key.Equals(ModParameters.SephirahError
+                            .FirstOrDefault(y => __instance.unitData.OwnerSephirah == y.Key).Value)).Value.Desc);
                 return false;
             }
+
             if (__instance.unitData.bookItem.BookId.packageId != ModParameters.PackageId ||
                 !ModParameters.DynamicNames.ContainsKey(__instance.unitData.bookItem.BookId.id)) return true;
             UIAlarmPopup.instance.SetAlarmText(ModParameters.EffectTexts
-                    .FirstOrDefault(x => x.Key.Equals(ModParameters.DynamicNames.FirstOrDefault(y => __instance.unitData.bookItem.BookId.id == y.Key).Value)).Value.Desc);
+                .FirstOrDefault(x =>
+                    x.Key.Equals(ModParameters.DynamicNames
+                        .FirstOrDefault(y => __instance.unitData.bookItem.BookId.id == y.Key).Value)).Value.Desc);
             return false;
         }
 

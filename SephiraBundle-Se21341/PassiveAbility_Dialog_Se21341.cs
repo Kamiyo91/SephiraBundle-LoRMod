@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using SephiraBundle_Se21341.Models;
-using UnityEngine;
 
 namespace SephiraBundle_Se21341
 {
@@ -15,9 +10,8 @@ namespace SephiraBundle_Se21341
             Hide();
             if (owner.UnitData.unitData.bookItem.ClassInfo.id.packageId != ModParameters.PackageId) return;
             if (ModParameters.DialogList.Keys.Contains(owner.UnitData.unitData.bookItem.ClassInfo.id.id))
-            {
-                owner.UnitData.unitData.InitBattleDialogByDefaultBook(ModParameters.DialogList.FirstOrDefault(x => x.Key == owner.UnitData.unitData.bookItem.ClassInfo.id.id).Value);
-            }
+                owner.UnitData.unitData.InitBattleDialogByDefaultBook(ModParameters.DialogList
+                    .FirstOrDefault(x => x.Key == owner.UnitData.unitData.bookItem.ClassInfo.id.id).Value);
         }
     }
 }

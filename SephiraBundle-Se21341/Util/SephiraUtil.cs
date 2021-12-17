@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using HarmonyLib;
 using LOR_XML;
@@ -37,6 +34,7 @@ namespace SephiraBundle_Se21341.Util
                             new EffectTextModel { Name = battleEffectText.Name, Desc = battleEffectText.Desc });
                     }
                 }
+
             files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/Books").GetFiles();
             foreach (var t in files)
                 using (var stringReader4 = new StringReader(File.ReadAllText(t.FullName)))
@@ -71,6 +69,7 @@ namespace SephiraBundle_Se21341.Util
                             .GetValue(Singleton<BookDescXmlList>.Instance) as Dictionary<string, List<BookDesc>>)
                         [ModParameters.PackageId] = bookDescRoot.bookDescList;
                 }
+
             files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/CharactersName")
                 .GetFiles();
             ModParameters.NameTexts.Clear();
@@ -93,6 +92,7 @@ namespace SephiraBundle_Se21341.Util
                         }
                     }
                 }
+
             files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/BattleDialog")
                 .GetFiles();
             var dialogDictionary =
@@ -128,6 +128,7 @@ namespace SephiraBundle_Se21341.Util
                         dialogDictionary.Add("Workshop", battleDialogRoot);
                     }
                 }
+
             files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/PassiveDesc")
                 .GetFiles();
             foreach (var t in files)
@@ -146,6 +147,7 @@ namespace SephiraBundle_Se21341.Util
                         }
                     }
                 }
+
             files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/DropBooks")
                 .GetFiles();
             foreach (var t in files)
@@ -200,6 +202,7 @@ namespace SephiraBundle_Se21341.Util
                     }
                 }
         }
+
         public static void RemoveError()
         {
             var list = new List<string>();
@@ -216,6 +219,7 @@ namespace SephiraBundle_Se21341.Util
 
             foreach (var item in list2) Singleton<ModContentManager>.Instance.GetErrorLogs().Remove(item);
         }
+
         public static void GetArtWorks(DirectoryInfo dir)
         {
             if (dir.GetDirectories().Length != 0)
@@ -234,6 +238,7 @@ namespace SephiraBundle_Se21341.Util
                 ModParameters.ArtWorks[fileNameWithoutExtension] = value;
             }
         }
+
         public static void ChangePassiveItem()
         {
             foreach (var passive in Singleton<PassiveXmlList>.Instance.GetDataAll().Where(passive =>
