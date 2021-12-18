@@ -16,7 +16,7 @@ namespace SephiraBundle_Se21341.Models
             { 10000001, new LorId(10) }, { 10000002, new LorId(6) }, { 10000003, new LorId(8) }
         };
 
-        public static readonly List<int> UntransferablePassives = new List<int> { 1, 2, 3 };
+        public static readonly List<int> UntransferablePassives = new List<int> { 1, 2, 3 ,4};
 
         public static readonly Dictionary<SephirahType, string> SephirahError = new Dictionary<SephirahType, string>
             { { SephirahType.Binah, "BinahError_Se21341" }, { SephirahType.Keter, "KeterError_Se21341" } };
@@ -26,7 +26,6 @@ namespace SephiraBundle_Se21341.Models
             { 10000001, "RolandName_Se21341" }, { 10000002, "GeburaName_Se21341" }, { 10000003, "BinahName_Se21341" },
             { 10000004, "AngelaName_Se21341" }
         };
-
         public static string Path { get; set; }
         public static string Language { get; set; }
     }
