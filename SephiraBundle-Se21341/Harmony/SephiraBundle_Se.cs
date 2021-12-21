@@ -48,7 +48,7 @@ namespace SephiraBundle_Se21341.Harmony
                 new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookForUI");
             harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBookForUI", AccessTools.all),
-                null,new HarmonyMethod(method));
+                null, new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_IsBinahChangeItemLock");
             harmony.Patch(typeof(UnitDataModel).GetMethod("IsBinahChangeItemLock", AccessTools.all),
                 null, new HarmonyMethod(method));
@@ -114,10 +114,16 @@ namespace SephiraBundle_Se21341.Harmony
         }
 
         public static void UnitDataModel_EquipBookForUI(UnitDataModel __instance,
-            BookModel newBook, bool isEnemySetting,bool force)
+            BookModel newBook, bool isEnemySetting, bool force)
         {
-            if (force || newBook == null || newBook.ClassInfo.id.packageId != ModParameters.PackageId ||
-                !ModParameters.DynamicNames.ContainsKey(newBook.ClassInfo.id.id)) return;
+            if (force) return;
+            if (newBook == null || newBook.ClassInfo.id.packageId != ModParameters.PackageId ||
+                !ModParameters.DynamicNames.ContainsKey(newBook.ClassInfo.id.id))
+            {
+                __instance.ResetTempName();
+                __instance.customizeData.SetCustomData(true);
+                return;
+            }
             if (!ModParameters.CustomSkinTrue.Contains(newBook.ClassInfo.id.id))
                 __instance.customizeData.SetCustomData(false);
             __instance.EquipCustomCoreBook(null);
@@ -125,33 +131,19 @@ namespace SephiraBundle_Se21341.Harmony
             __instance.SetTempName(ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals(name)).Value.Name);
             __instance.EquipBook(newBook, isEnemySetting, true);
         }
-        public static void UnitDataModel_EquipBook(UnitDataModel __instance, BookModel ____bookItem,
+        public static void UnitDataModel_EquipBook(UnitDataModel __instance,
             ref BookModel newBook, bool force)
         {
             if (force) return;
-            if (newBook == null && __instance.isSephirah && __instance.OwnerSephirah == SephirahType.Keter &&
+            if (__instance.isSephirah && __instance.OwnerSephirah == SephirahType.Keter &&
                 !LibraryModel.Instance.IsBlackSilenceLockedInLibrary())
             {
-                __instance.ResetTempName();
-                __instance.customizeData.SetCustomData(true);
                 newBook = Singleton<BookInventoryModel>.Instance.GetBlackSilenceBook();
                 return;
             }
-
-            if (__instance.bookItem.ClassInfo.id.packageId == ModParameters.PackageId &&
-                ModParameters.DynamicNames.ContainsKey(__instance.bookItem.ClassInfo.id.id))
-            {
-                __instance.ResetTempName();
-                __instance.customizeData.SetCustomData(true);
-                return;
-            }
-
-            if (newBook != null && __instance.isSephirah && 
-                (__instance.OwnerSephirah == SephirahType.Binah ||
-                 __instance.OwnerSephirah == SephirahType.Keter))
-            {
-                newBook = ____bookItem;
-            }
+            if (newBook == null || !__instance.isSephirah || (__instance.OwnerSephirah != SephirahType.Binah &&
+                                                              __instance.OwnerSephirah != SephirahType.Keter)) return;
+            newBook = null;
         }
 
         public static void TextDataModel_InitTextData(string currentLanguage)
