@@ -44,9 +44,11 @@ namespace SephiraBundle_Se21341.Harmony
             harmony.Patch(typeof(TextDataModel).GetMethod("InitTextData", AccessTools.all),
                 null, new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBook");
-            var methodSuffix = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBook_Postfix");
             harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBook", AccessTools.all),
-                new HarmonyMethod(method), new HarmonyMethod(methodSuffix));
+                new HarmonyMethod(method));
+            method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookForUI");
+            harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBookForUI", AccessTools.all),
+                null,new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_IsBinahChangeItemLock");
             harmony.Patch(typeof(UnitDataModel).GetMethod("IsBinahChangeItemLock", AccessTools.all),
                 null, new HarmonyMethod(method));
@@ -111,10 +113,20 @@ namespace SephiraBundle_Se21341.Harmony
                     ItemXmlDataList.instance.GetCardItem(new LorId(ModParameters.PackageId, id))));
         }
 
-        [HarmonyPriority(0)]
-        public static void UnitDataModel_EquipBook(UnitDataModel __instance, ref bool __state, BookModel ____bookItem,
-            ref BookModel newBook, bool isEnemySetting,
-            bool force)
+        public static void UnitDataModel_EquipBookForUI(UnitDataModel __instance,
+            ref BookModel newBook, bool isEnemySetting,bool force)
+        {
+            if (force || newBook == null || newBook.ClassInfo.id.packageId != ModParameters.PackageId ||
+                !ModParameters.DynamicNames.ContainsKey(newBook.ClassInfo.id.id)) return;
+            if (!ModParameters.CustomSkinTrue.Contains(newBook.ClassInfo.id.id))
+                __instance.customizeData.SetCustomData(false);
+            __instance.EquipCustomCoreBook(null);
+            ModParameters.DynamicNames.TryGetValue(newBook.ClassInfo.id.id, out var name);
+            __instance.SetTempName(ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals(name)).Value.Name);
+            __instance.EquipBook(newBook, isEnemySetting, true);
+        }
+        public static void UnitDataModel_EquipBook(UnitDataModel __instance, BookModel ____bookItem,
+            ref BookModel newBook, bool force)
         {
             if (force) return;
             if (newBook == null && __instance.isSephirah && __instance.OwnerSephirah == SephirahType.Keter &&
@@ -126,17 +138,6 @@ namespace SephiraBundle_Se21341.Harmony
                 return;
             }
 
-            if (newBook != null && newBook.ClassInfo.id.packageId == ModParameters.PackageId &&
-                ModParameters.DynamicNames.ContainsKey(newBook.ClassInfo.id.id))
-            {
-                if (!ModParameters.CustomSkinTrue.Contains(newBook.ClassInfo.id.id))
-                    __instance.customizeData.SetCustomData(false);
-                __instance.EquipCustomCoreBook(null);
-                ModParameters.DynamicNames.TryGetValue(newBook.ClassInfo.id.id, out var name);
-                __instance.SetTempName(ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals(name)).Value.Name);
-                return;
-            }
-
             if (__instance.bookItem.ClassInfo.id.packageId == ModParameters.PackageId &&
                 ModParameters.DynamicNames.ContainsKey(__instance.bookItem.ClassInfo.id.id))
             {
@@ -145,25 +146,12 @@ namespace SephiraBundle_Se21341.Harmony
                 return;
             }
 
-            if (newBook != null && (newBook.ClassInfo.id.packageId == ModParameters.PackageId || !newBook.IsWorkshop) &&
-                __instance.isSephirah && (__instance.OwnerSephirah == SephirahType.Binah ||
-                                          __instance.OwnerSephirah == SephirahType.Keter))
+            if (newBook != null && __instance.isSephirah && 
+                (__instance.OwnerSephirah == SephirahType.Binah ||
+                 __instance.OwnerSephirah == SephirahType.Keter))
             {
                 newBook = ____bookItem;
-                __state = false;
-                return;
             }
-
-            if (__instance.isSephirah && __instance.OwnerSephirah == SephirahType.Binah)
-                __instance.customizeData.SetCustomData(true);
-            __state = true;
-        }
-
-        public static void UnitDataModel_EquipBook_Postfix(UnitDataModel __instance, ref bool __state,
-            ref bool __result)
-        {
-            if (__state) return;
-            __result = false;
         }
 
         public static void TextDataModel_InitTextData(string currentLanguage)
