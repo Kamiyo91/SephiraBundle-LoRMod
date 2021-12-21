@@ -114,7 +114,7 @@ namespace SephiraBundle_Se21341.Harmony
         }
 
         public static void UnitDataModel_EquipBookForUI(UnitDataModel __instance,
-            ref BookModel newBook, bool isEnemySetting,bool force)
+            BookModel newBook, bool isEnemySetting,bool force)
         {
             if (force || newBook == null || newBook.ClassInfo.id.packageId != ModParameters.PackageId ||
                 !ModParameters.DynamicNames.ContainsKey(newBook.ClassInfo.id.id)) return;
