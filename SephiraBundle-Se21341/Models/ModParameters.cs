@@ -15,7 +15,8 @@ namespace SephiraBundle_Se21341.Models
         {
             { 10000001, new LorId(10) }, { 10000002, new LorId(6) }, { 10000003, new LorId(8) }
         };
-
+        public static readonly List<int> NoInventoryCardList = new List<int>
+            { 9910001, 9910002, 9910003, 9910004, 9910005 };
         public static readonly List<int> UntransferablePassives = new List<int> { 1, 2, 3, 4 };
 
         public static readonly Dictionary<SephirahType, string> SephirahError = new Dictionary<SephirahType, string>

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using HarmonyLib;
+using LOR_DiceSystem;
 using LOR_XML;
 using Mod;
 using SephiraBundle_Se21341.Models;
@@ -208,6 +209,9 @@ namespace SephiraBundle_Se21341.Util
             var list = new List<string>();
             var list2 = new List<string>();
             list.Add("0Harmony");
+            list.Add("Mono.Cecil");
+            list.Add("MonoMod.Utils");
+            list.Add("MonoMod.RuntimeDetour");
             using (var enumerator = Singleton<ModContentManager>.Instance.GetErrorLogs().GetEnumerator())
             {
                 while (enumerator.MoveNext())
@@ -246,5 +250,51 @@ namespace SephiraBundle_Se21341.Util
                          ModParameters.UntransferablePassives.Contains(passive.id.id)))
                 passive.CanGivePassive = false;
         }
+        public static void ChangeCardItem(ItemXmlDataList instance)
+        {
+            var dictionary = (Dictionary<LorId, DiceCardXmlInfo>)instance.GetType()
+                .GetField("_cardInfoTable", AccessTools.all).GetValue(instance);
+            var list = (List<DiceCardXmlInfo>)instance.GetType()
+                .GetField("_cardInfoList", AccessTools.all).GetValue(instance);
+            foreach (var item in dictionary.Where(x => string.IsNullOrEmpty(x.Key.packageId)).Where(item => ModParameters.NoInventoryCardList.Contains(item.Key.id)).ToList())
+            {
+                SetCustomCardOption(CardOption.NoInventory, item.Key, false, ref dictionary, ref list);
+            }
+        }
+        private static void SetCustomCardOption(CardOption option, LorId id, bool keywordsRequired,
+            ref Dictionary<LorId, DiceCardXmlInfo> cardDictionary, ref List<DiceCardXmlInfo> cardXmlList)
+        {
+            var diceCardXmlInfo2 = CardOptionChange(cardDictionary[id], new List<CardOption> { option });
+            cardDictionary[id] = diceCardXmlInfo2;
+            cardXmlList.Add(diceCardXmlInfo2);
+        }
+        private static DiceCardXmlInfo CardOptionChange(DiceCardXmlInfo cardXml, List<CardOption> option)
+        {
+            return new DiceCardXmlInfo(cardXml.id)
+            {
+                workshopID = cardXml.workshopID,
+                workshopName = cardXml.workshopName,
+                Artwork = cardXml.Artwork,
+                Chapter = cardXml.Chapter,
+                category = cardXml.category,
+                DiceBehaviourList = cardXml.DiceBehaviourList,
+                _textId = cardXml._textId,
+                optionList = option.Any() ? option : cardXml.optionList,
+                Priority = cardXml.Priority,
+                Rarity = cardXml.Rarity,
+                Script = cardXml.Script,
+                ScriptDesc = cardXml.ScriptDesc,
+                Spec = cardXml.Spec,
+                SpecialEffect = cardXml.SpecialEffect,
+                SkinChange = cardXml.SkinChange,
+                SkinChangeType = cardXml.SkinChangeType,
+                SkinHeight = cardXml.SkinHeight,
+                MapChange =  cardXml.MapChange,
+                PriorityScript = cardXml.PriorityScript,
+                Keywords = cardXml.Keywords
+            };
+        }
+        public static bool IsLockedCharacter(UnitDataModel unitData)
+            => unitData.isSephirah && (unitData.OwnerSephirah == SephirahType.Binah || unitData.OwnerSephirah == SephirahType.Keter);
     }
 }

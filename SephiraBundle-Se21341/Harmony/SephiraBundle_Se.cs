@@ -37,29 +37,21 @@ namespace SephiraBundle_Se21341.Harmony
             method = typeof(SephiraBundle_Se).GetMethod("UISpriteDataManager_GetStoryIcon");
             harmony.Patch(typeof(UISpriteDataManager).GetMethod("GetStoryIcon", AccessTools.all),
                 new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBook");
-            harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBook", AccessTools.all),
-                null, new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("TextDataModel_InitTextData");
             harmony.Patch(typeof(TextDataModel).GetMethod("InitTextData", AccessTools.all),
                 null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBook");
-            harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBook", AccessTools.all),
-                new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookForUI");
             harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBookForUI", AccessTools.all),
                 null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_IsBinahChangeItemLock");
-            harmony.Patch(typeof(UnitDataModel).GetMethod("IsBinahChangeItemLock", AccessTools.all),
-                null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_IsBlackSilenceChangeItemLock");
-            harmony.Patch(typeof(UnitDataModel).GetMethod("IsBlackSilenceChangeItemLock", AccessTools.all),
+            method = typeof(SephiraBundle_Se).GetMethod("UIInvenEquipPageSlot_SetOperatingPanel");
+            harmony.Patch(typeof(UIInvenEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
                 null, new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("UILibrarianAppearanceInfoPanel_OnClickCustomizeButton");
             harmony.Patch(typeof(UILibrarianAppearanceInfoPanel).GetMethod("OnClickCustomizeButton", AccessTools.all),
                 new HarmonyMethod(method));
             ModParameters.Language = GlobalGameManager.Instance.CurrentOption.language;
             SephiraUtil.GetArtWorks(new DirectoryInfo(ModParameters.Path + "/ArtWork"));
+            SephiraUtil.ChangeCardItem(ItemXmlDataList.instance);
             SephiraUtil.ChangePassiveItem();
             SephiraUtil.AddLocalize();
             SephiraUtil.RemoveError();
@@ -112,6 +104,18 @@ namespace SephiraBundle_Se21341.Harmony
                 ____onlyCards.AddRange(____classInfo.EquipEffect.OnlyCard.Select(id =>
                     ItemXmlDataList.instance.GetCardItem(new LorId(ModParameters.PackageId, id))));
         }
+        public static void UIInvenEquipPageSlot_SetOperatingPanel(UIInvenEquipPageSlot __instance,
+            UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
+        {
+            if (____bookDataModel.ClassInfo.id.packageId != ModParameters.PackageId) return;
+            if (__instance.BookDataModel == null || __instance.BookDataModel.owner != null) return;
+            var currentUnit = UI.UIController.Instance.CurrentUnit;
+            if (currentUnit == null || !SephiraUtil.IsLockedCharacter(currentUnit) ||
+                !ModParameters.DynamicNames.ContainsKey(____bookDataModel.ClassInfo.id.id)) return;
+            ___button_Equip.interactable = true;
+            ___txt_equipButton.text = TextDataModel.GetText("ui_bookinventory_equipbook", Array.Empty<object>());
+        }
+
 
         public static void UnitDataModel_EquipBookForUI(UnitDataModel __instance,
             BookModel newBook, bool isEnemySetting, bool force)
@@ -131,37 +135,12 @@ namespace SephiraBundle_Se21341.Harmony
             __instance.SetTempName(ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals(name)).Value.Name);
             __instance.EquipBook(newBook, isEnemySetting, true);
         }
-        public static void UnitDataModel_EquipBook(UnitDataModel __instance,
-            ref BookModel newBook, bool force)
-        {
-            if (force) return;
-            if (__instance.isSephirah && __instance.OwnerSephirah == SephirahType.Keter &&
-                !LibraryModel.Instance.IsBlackSilenceLockedInLibrary())
-            {
-                newBook = Singleton<BookInventoryModel>.Instance.GetBlackSilenceBook();
-                return;
-            }
-            if (newBook == null || !__instance.isSephirah || (__instance.OwnerSephirah != SephirahType.Binah &&
-                                                              __instance.OwnerSephirah != SephirahType.Keter)) return;
-            newBook = null;
-        }
 
         public static void TextDataModel_InitTextData(string currentLanguage)
         {
             ModParameters.Language = currentLanguage;
             SephiraUtil.AddLocalize();
         }
-
-        public static void UnitDataModel_IsBinahChangeItemLock(ref bool __result)
-        {
-            __result = false;
-        }
-
-        public static void UnitDataModel_IsBlackSilenceChangeItemLock(ref bool __result)
-        {
-            __result = false;
-        }
-
         public static bool UILibrarianAppearanceInfoPanel_OnClickCustomizeButton(
             UILibrarianAppearanceInfoPanel __instance)
         {
