@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -7,6 +8,8 @@ using LOR_DiceSystem;
 using LOR_XML;
 using Mod;
 using SephiraBundle_Se21341.Models;
+using TMPro;
+using UI;
 using UnityEngine;
 
 namespace SephiraBundle_Se21341.Util
@@ -294,7 +297,19 @@ namespace SephiraBundle_Se21341.Util
                 Keywords = cardXml.Keywords
             };
         }
-        public static bool IsLockedCharacter(UnitDataModel unitData)
+        public static void SetOperationPanel(UIOriginEquipPageSlot instance,
+            UICustomGraphicObject button_Equip, TextMeshProUGUI txt_equipButton, BookModel bookDataModel)
+        {
+            if (bookDataModel.ClassInfo.id.packageId != ModParameters.PackageId) return;
+            if (instance.BookDataModel == null || instance.BookDataModel.owner != null) return;
+            var currentUnit = UI.UIController.Instance.CurrentUnit;
+            if (currentUnit == null || !IsLockedCharacter(currentUnit) ||
+                !ModParameters.DynamicNames.ContainsKey(bookDataModel.ClassInfo.id.id)) return;
+            button_Equip.interactable = true;
+            txt_equipButton.text = TextDataModel.GetText("ui_bookinventory_equipbook", Array.Empty<object>());
+        }
+
+        private static bool IsLockedCharacter(UnitDataModel unitData)
             => unitData.isSephirah && (unitData.OwnerSephirah == SephirahType.Binah || unitData.OwnerSephirah == SephirahType.Keter);
     }
 }

@@ -46,6 +46,15 @@ namespace SephiraBundle_Se21341.Harmony
             method = typeof(SephiraBundle_Se).GetMethod("UIInvenEquipPageSlot_SetOperatingPanel");
             harmony.Patch(typeof(UIInvenEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
                 null, new HarmonyMethod(method));
+            method = typeof(SephiraBundle_Se).GetMethod("UIInvenLeftEquipPageSlot_SetOperatingPanel");
+            harmony.Patch(typeof(UIInvenLeftEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
+                null, new HarmonyMethod(method));
+            method = typeof(SephiraBundle_Se).GetMethod("UISettingInvenEquipPageSlot_SetOperatingPanel");
+            harmony.Patch(typeof(UISettingInvenEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
+                null, new HarmonyMethod(method));
+            method = typeof(SephiraBundle_Se).GetMethod("UISettingInvenEquipPageLeftSlot_SetOperatingPanel");
+            harmony.Patch(typeof(UISettingInvenEquipPageLeftSlot).GetMethod("SetOperatingPanel", AccessTools.all),
+                null, new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("UILibrarianAppearanceInfoPanel_OnClickCustomizeButton");
             harmony.Patch(typeof(UILibrarianAppearanceInfoPanel).GetMethod("OnClickCustomizeButton", AccessTools.all),
                 new HarmonyMethod(method));
@@ -107,15 +116,23 @@ namespace SephiraBundle_Se21341.Harmony
         public static void UIInvenEquipPageSlot_SetOperatingPanel(UIInvenEquipPageSlot __instance,
             UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
         {
-            if (____bookDataModel.ClassInfo.id.packageId != ModParameters.PackageId) return;
-            if (__instance.BookDataModel == null || __instance.BookDataModel.owner != null) return;
-            var currentUnit = UI.UIController.Instance.CurrentUnit;
-            if (currentUnit == null || !SephiraUtil.IsLockedCharacter(currentUnit) ||
-                !ModParameters.DynamicNames.ContainsKey(____bookDataModel.ClassInfo.id.id)) return;
-            ___button_Equip.interactable = true;
-            ___txt_equipButton.text = TextDataModel.GetText("ui_bookinventory_equipbook", Array.Empty<object>());
+            SephiraUtil.SetOperationPanel(__instance,___button_Equip,___txt_equipButton,____bookDataModel);
         }
-
+        public static void UIInvenLeftEquipPageSlot_SetOperatingPanel(UIInvenLeftEquipPageSlot __instance,
+            UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
+        {
+            SephiraUtil.SetOperationPanel(__instance, ___button_Equip, ___txt_equipButton, ____bookDataModel);
+        }
+        public static void UISettingInvenEquipPageSlot_SetOperatingPanel(UISettingInvenEquipPageSlot __instance,
+            UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
+        {
+            SephiraUtil.SetOperationPanel(__instance, ___button_Equip, ___txt_equipButton, ____bookDataModel);
+        }
+        public static void UISettingInvenEquipPageLeftSlot_SetOperatingPanel(UISettingInvenEquipPageLeftSlot __instance,
+            UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
+        {
+            SephiraUtil.SetOperationPanel(__instance, ___button_Equip, ___txt_equipButton, ____bookDataModel);
+        }
 
         public static void UnitDataModel_EquipBookForUI(UnitDataModel __instance,
             BookModel newBook, bool isEnemySetting, bool force)
