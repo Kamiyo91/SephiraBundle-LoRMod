@@ -11,6 +11,7 @@ using SephiraBundle_Se21341.Models;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SephiraBundle_Se21341.Util
 {
@@ -311,5 +312,30 @@ namespace SephiraBundle_Se21341.Util
 
         private static bool IsLockedCharacter(UnitDataModel unitData)
             => unitData.isSephirah && (unitData.OwnerSephirah == SephirahType.Binah || unitData.OwnerSephirah == SephirahType.Keter);
+        public static void SetBooksData(UIOriginEquipPageList instance,
+            List<BookModel> books, UIStoryKeyData storyKey)
+        {
+            if (storyKey.workshopId != ModParameters.PackageId) return;
+            var textMeshProUGUI = (TextMeshProUGUI)instance.GetType().GetField("txt_StoryName", AccessTools.all)
+                .GetValue(instance);
+            if (books.Count < 0) return;
+            textMeshProUGUI.text = ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals("ModName_Re21341")).Value
+                .Name;
+        }
+        public static void GetThumbSprite(LorId bookId, ref Sprite result)
+        {
+            if (bookId.packageId != ModParameters.PackageId) return;
+            var sprite = ModParameters.SpritePreviewChange.FirstOrDefault(x => x.Value.Contains(bookId.id));
+            if (!string.IsNullOrEmpty(sprite.Key) && sprite.Value.Any())
+            {
+                result = ModParameters.ArtWorks[sprite.Key];
+                return;
+            }
+
+            var defaultSprite =
+                ModParameters.DefaultSpritePreviewChange.FirstOrDefault(x => x.Value.Contains(bookId.id));
+            if (!string.IsNullOrEmpty(defaultSprite.Key) && defaultSprite.Value.Any())
+                result = Resources.Load<Sprite>(defaultSprite.Key);
+        }
     }
 }

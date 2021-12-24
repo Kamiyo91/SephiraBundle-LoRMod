@@ -27,6 +27,19 @@ namespace SephiraBundle_Se21341.Models
             { 10000001, "RolandName_Se21341" }, { 10000002, "GeburaName_Se21341" }, { 10000003, "BinahName_Se21341" },
             { 10000004, "AngelaName_Se21341" }
         };
+        public static readonly Dictionary<string, List<int>> SpritePreviewChange = new Dictionary<string, List<int>>
+        {
+            { "AngelaDefault_Se21341", new List<int> { 10000004 } }
+        };
+
+        public static readonly Dictionary<string, List<int>> DefaultSpritePreviewChange =
+            new Dictionary<string, List<int>>
+            {
+                { "Sprites/Books/Thumb/102", new List<int> { 10000001 } },
+                { "Sprites/Books/Thumb/250022", new List<int> { 10000002 } },
+                { "Sprites/Books/Thumb/8", new List<int> { 10000003 } }
+            };
+
 
         public static string Path { get; set; }
         public static string Language { get; set; }

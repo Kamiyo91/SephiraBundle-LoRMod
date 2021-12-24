@@ -22,16 +22,14 @@ namespace SephiraBundle_Se21341.Harmony
             var harmony = new HarmonyLib.Harmony("LOR.SephirahBundleSe21341_MOD");
             var method = typeof(SephiraBundle_Se).GetMethod("BookModel_SetXmlInfo");
             harmony.Patch(typeof(BookModel).GetMethod("SetXmlInfo", AccessTools.all), null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("BookModel_GetThumbSprite");
+            method = typeof(SephiraBundle_Se).GetMethod("General_GetThumbSprite");
             harmony.Patch(typeof(BookModel).GetMethod("GetThumbSprite", AccessTools.all), null,
                 new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("BookXmlInfo_GetThumbSprite");
             harmony.Patch(typeof(BookXmlInfo).GetMethod("GetThumbSprite", AccessTools.all), null,
                 new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UISettingInvenEquipPageListSlot_SetBooksData");
+            method = typeof(SephiraBundle_Se).GetMethod("General_SetBooksData");
             harmony.Patch(typeof(UISettingInvenEquipPageListSlot).GetMethod("SetBooksData", AccessTools.all),
                 null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UIInvenEquipPageListSlot_SetBooksData");
             harmony.Patch(typeof(UIInvenEquipPageListSlot).GetMethod("SetBooksData", AccessTools.all),
                 null, new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("UISpriteDataManager_GetStoryIcon");
@@ -43,16 +41,13 @@ namespace SephiraBundle_Se21341.Harmony
             method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookForUI");
             harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBookForUI", AccessTools.all),
                 null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UIInvenEquipPageSlot_SetOperatingPanel");
+            method = typeof(SephiraBundle_Se).GetMethod("General_SetOperatingPanel");
             harmony.Patch(typeof(UIInvenEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
                 null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UIInvenLeftEquipPageSlot_SetOperatingPanel");
             harmony.Patch(typeof(UIInvenLeftEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
                 null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UISettingInvenEquipPageSlot_SetOperatingPanel");
             harmony.Patch(typeof(UISettingInvenEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
                 null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UISettingInvenEquipPageLeftSlot_SetOperatingPanel");
             harmony.Patch(typeof(UISettingInvenEquipPageLeftSlot).GetMethod("SetOperatingPanel", AccessTools.all),
                 null, new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("UILibrarianAppearanceInfoPanel_OnClickCustomizeButton");
@@ -66,43 +61,16 @@ namespace SephiraBundle_Se21341.Harmony
             SephiraUtil.RemoveError();
         }
 
-        public static void BookXmlInfo_GetThumbSprite(BookXmlInfo __instance, ref Sprite __result)
+        public static void General_GetThumbSprite(object __instance, ref Sprite __result)
         {
-            if (__instance.id.packageId != ModParameters.PackageId) return;
-            switch (__instance.id.id)
+            switch (__instance)
             {
-                case 10000001:
-                    __result = Resources.Load<Sprite>("Sprites/Books/Thumb/102");
-                    return;
-                case 10000002:
-                    __result = Resources.Load<Sprite>("Sprites/Books/Thumb/250022");
-                    return;
-                case 10000003:
-                    __result = Resources.Load<Sprite>("Sprites/Books/Thumb/8");
-                    return;
-                case 10000004:
-                    __result = ModParameters.ArtWorks["AngelaDefault_Se21341"];
-                    return;
-            }
-        }
-
-        public static void BookModel_GetThumbSprite(BookModel __instance, ref Sprite __result)
-        {
-            if (__instance.BookId.packageId != ModParameters.PackageId) return;
-            switch (__instance.BookId.id)
-            {
-                case 10000001:
-                    __result = Resources.Load<Sprite>("Sprites/Books/Thumb/102");
-                    return;
-                case 10000002:
-                    __result = Resources.Load<Sprite>("Sprites/Books/Thumb/250022");
-                    return;
-                case 10000003:
-                    __result = Resources.Load<Sprite>("Sprites/Books/Thumb/8");
-                    return;
-                case 10000004:
-                    __result = ModParameters.ArtWorks["AngelaDefault_Se21341"];
-                    return;
+                case BookXmlInfo bookInfo:
+                    SephiraUtil.GetThumbSprite(bookInfo.id, ref __result);
+                    break;
+                case BookModel bookModel:
+                    SephiraUtil.GetThumbSprite(bookModel.BookId, ref __result);
+                    break;
             }
         }
 
@@ -113,27 +81,12 @@ namespace SephiraBundle_Se21341.Harmony
                 ____onlyCards.AddRange(____classInfo.EquipEffect.OnlyCard.Select(id =>
                     ItemXmlDataList.instance.GetCardItem(new LorId(ModParameters.PackageId, id))));
         }
-        public static void UIInvenEquipPageSlot_SetOperatingPanel(UIInvenEquipPageSlot __instance,
+        public static void General_SetOperatingPanel(object __instance,
             UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
         {
-            SephiraUtil.SetOperationPanel(__instance,___button_Equip,___txt_equipButton,____bookDataModel);
+            var uiOrigin = __instance as UIOriginEquipPageSlot;
+            SephiraUtil.SetOperationPanel(uiOrigin, ___button_Equip,___txt_equipButton,____bookDataModel);
         }
-        public static void UIInvenLeftEquipPageSlot_SetOperatingPanel(UIInvenLeftEquipPageSlot __instance,
-            UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
-        {
-            SephiraUtil.SetOperationPanel(__instance, ___button_Equip, ___txt_equipButton, ____bookDataModel);
-        }
-        public static void UISettingInvenEquipPageSlot_SetOperatingPanel(UISettingInvenEquipPageSlot __instance,
-            UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
-        {
-            SephiraUtil.SetOperationPanel(__instance, ___button_Equip, ___txt_equipButton, ____bookDataModel);
-        }
-        public static void UISettingInvenEquipPageLeftSlot_SetOperatingPanel(UISettingInvenEquipPageLeftSlot __instance,
-            UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
-        {
-            SephiraUtil.SetOperationPanel(__instance, ___button_Equip, ___txt_equipButton, ____bookDataModel);
-        }
-
         public static void UnitDataModel_EquipBookForUI(UnitDataModel __instance,
             BookModel newBook, bool isEnemySetting, bool force)
         {
@@ -182,26 +135,11 @@ namespace SephiraBundle_Se21341.Harmony
             return false;
         }
 
-        public static void UIInvenEquipPageListSlot_SetBooksData(UISettingInvenEquipPageListSlot __instance,
+        public static void General_SetBooksData(object __instance,
             List<BookModel> books, UIStoryKeyData storyKey)
         {
-            if (storyKey.workshopId != ModParameters.PackageId) return;
-            var textMeshProUGUI = (TextMeshProUGUI)__instance.GetType().GetField("txt_StoryName", AccessTools.all)
-                .GetValue(__instance);
-            if (books.Count < 0) return;
-            textMeshProUGUI.text = ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals("ModName_Re21341")).Value
-                .Name;
-        }
-
-        public static void UISettingInvenEquipPageListSlot_SetBooksData(UISettingInvenEquipPageListSlot __instance,
-            List<BookModel> books, UIStoryKeyData storyKey)
-        {
-            if (storyKey.workshopId != ModParameters.PackageId) return;
-            var textMeshProUGUI = (TextMeshProUGUI)__instance.GetType().GetField("txt_StoryName", AccessTools.all)
-                .GetValue(__instance);
-            if (books.Count < 0) return;
-            textMeshProUGUI.text = ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals("ModName_Re21341")).Value
-                .Name;
+            var uiOrigin = __instance as UIOriginEquipPageList;
+            SephiraUtil.SetBooksData(uiOrigin,books,storyKey);
         }
 
         public static void UISpriteDataManager_GetStoryIcon(UISpriteDataManager __instance, ref string story)
