@@ -302,10 +302,19 @@ namespace SephiraBundle_Se21341.Util
         public static void SetOperationPanel(UIOriginEquipPageSlot instance,
             UICustomGraphicObject button_Equip, TextMeshProUGUI txt_equipButton, BookModel bookDataModel)
         {
-            if (bookDataModel.ClassInfo.id.packageId != ModParameters.PackageId) return;
-            if (instance.BookDataModel == null || instance.BookDataModel.owner != null) return;
+            if (bookDataModel.ClassInfo.id.packageId != ModParameters.PackageId || instance.BookDataModel == null ||
+                instance.BookDataModel.owner != null) return;
             var currentUnit = UI.UIController.Instance.CurrentUnit;
-            if (currentUnit == null || !IsLockedCharacter(currentUnit) ||
+            if (currentUnit == null) return;
+            if (!currentUnit.isSephirah &&
+                ModParameters.DynamicNames.FirstOrDefault(x => x.Key == bookDataModel.ClassInfo.id.id).Value.Item2 ==
+                currentUnit.OwnerSephirah)
+            {
+                button_Equip.interactable = false;
+                txt_equipButton.text = TextDataModel.GetText("ui_equippage_notequip", Array.Empty<object>());
+            }
+
+            if (!IsLockedCharacter(currentUnit) ||
                 !ModParameters.DynamicNames.ContainsKey(bookDataModel.ClassInfo.id.id)) return;
             button_Equip.interactable = true;
             txt_equipButton.text = TextDataModel.GetText("ui_bookinventory_equipbook", Array.Empty<object>());

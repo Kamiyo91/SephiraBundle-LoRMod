@@ -110,8 +110,9 @@ namespace SephiraBundle_Se21341.Harmony
             if (!ModParameters.CustomSkinTrue.Contains(__state.ClassInfo.id.id))
                 __instance.customizeData.SetCustomData(false);
             __instance.EquipCustomCoreBook(null);
+            __instance.workshopSkin = "";
             ModParameters.DynamicNames.TryGetValue(__state.ClassInfo.id.id, out var name);
-            __instance.SetTempName(ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals(name)).Value.Name);
+            __instance.SetTempName(ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals(name?.Item1)).Value.Name);
             __instance.EquipBook(__state, isEnemySetting, true);
         }
 
@@ -124,18 +125,6 @@ namespace SephiraBundle_Se21341.Harmony
         public static bool UILibrarianAppearanceInfoPanel_OnClickCustomizeButton(
             UILibrarianAppearanceInfoPanel __instance)
         {
-            if (__instance.unitData.isSephirah &&
-                (__instance.unitData.OwnerSephirah == SephirahType.Binah ||
-                 __instance.unitData.OwnerSephirah == SephirahType.Keter &&
-                 !LibraryModel.Instance.IsBlackSilenceLockedInLibrary()))
-            {
-                UIAlarmPopup.instance.SetAlarmText(ModParameters.EffectTexts
-                    .FirstOrDefault(x =>
-                        x.Key.Equals(ModParameters.SephirahError
-                            .FirstOrDefault(y => __instance.unitData.OwnerSephirah == y.Key).Value)).Value.Desc);
-                return false;
-            }
-
             if (__instance.unitData.bookItem.BookId.packageId != ModParameters.PackageId ||
                 !ModParameters.DynamicNames.ContainsKey(__instance.unitData.bookItem.BookId.id)) return true;
             UIAlarmPopup.instance.SetAlarmText(ModParameters.EffectTexts

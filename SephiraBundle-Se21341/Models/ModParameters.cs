@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SephiraBundle_Se21341.Models
@@ -25,11 +26,14 @@ namespace SephiraBundle_Se21341.Models
         public static readonly Dictionary<SephirahType, string> SephirahError = new Dictionary<SephirahType, string>
             { { SephirahType.Binah, "BinahError_Se21341" }, { SephirahType.Keter, "KeterError_Se21341" } };
 
-        public static readonly Dictionary<int, string> DynamicNames = new Dictionary<int, string>
-        {
-            { 10000001, "RolandName_Se21341" }, { 10000002, "GeburaName_Se21341" }, { 10000003, "BinahName_Se21341" },
-            { 10000004, "AngelaName_Se21341" }
-        };
+        public static readonly Dictionary<int, Tuple<string, SephirahType>> DynamicNames =
+            new Dictionary<int, Tuple<string, SephirahType>>
+            {
+                { 10000001, new Tuple<string, SephirahType>("RolandName_Se21341", SephirahType.Keter) },
+                { 10000002, new Tuple<string, SephirahType>("GeburaName_Se21341", SephirahType.Gebura) },
+                { 10000003, new Tuple<string, SephirahType>("BinahName_Se21341", SephirahType.Binah) },
+                { 10000004, new Tuple<string, SephirahType>("AngelaName_Se21341", SephirahType.None) }
+            };
 
         public static readonly Dictionary<string, List<int>> SpritePreviewChange = new Dictionary<string, List<int>>
         {
