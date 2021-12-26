@@ -38,9 +38,10 @@ namespace SephiraBundle_Se21341.Harmony
             method = typeof(SephiraBundle_Se).GetMethod("TextDataModel_InitTextData");
             harmony.Patch(typeof(TextDataModel).GetMethod("InitTextData", AccessTools.all),
                 null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookForUI");
-            harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBookForUI", AccessTools.all),
-                null, new HarmonyMethod(method));
+            method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookPrefix");
+            var methodPostfix = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookPostfix");
+            harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBook", AccessTools.all), 
+                new HarmonyMethod(method), new HarmonyMethod(methodPostfix));
             method = typeof(SephiraBundle_Se).GetMethod("General_SetOperatingPanel");
             harmony.Patch(typeof(UIInvenEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
                 null, new HarmonyMethod(method));
@@ -85,25 +86,29 @@ namespace SephiraBundle_Se21341.Harmony
             UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
         {
             var uiOrigin = __instance as UIOriginEquipPageSlot;
-            SephiraUtil.SetOperationPanel(uiOrigin, ___button_Equip,___txt_equipButton,____bookDataModel);
+            SephiraUtil.SetOperationPanel(uiOrigin, ___button_Equip, ___txt_equipButton, ____bookDataModel);
         }
-        public static void UnitDataModel_EquipBookForUI(UnitDataModel __instance,
-            BookModel newBook, bool isEnemySetting, bool force)
+        public static void UnitDataModel_EquipBookPrefix(UnitDataModel __instance,BookModel newBook, ref BookModel __state,bool force)
         {
             if (force) return;
-            if (newBook == null || newBook.ClassInfo.id.packageId != ModParameters.PackageId ||
-                !ModParameters.DynamicNames.ContainsKey(newBook.ClassInfo.id.id))
-            {
-                __instance.ResetTempName();
-                __instance.customizeData.SetCustomData(true);
-                return;
-            }
-            if (!ModParameters.CustomSkinTrue.Contains(newBook.ClassInfo.id.id))
+            __state = newBook;
+            if (ModParameters.PackageId != __instance.bookItem.ClassInfo.id.packageId ||
+                !ModParameters.DynamicNames.ContainsKey(__instance.bookItem.ClassInfo.id.id)) return;
+            __instance.ResetTempName();
+            __instance.customizeData.SetCustomData(true);
+        }
+        public static void UnitDataModel_EquipBookPostfix(UnitDataModel __instance,
+            BookModel __state,bool isEnemySetting ,bool force)
+        {
+            if (force) return;
+            if (__state == null || ModParameters.PackageId != __state.ClassInfo.workshopID ||
+                !ModParameters.DynamicNames.ContainsKey(__state.ClassInfo.id.id)) return;
+            if (!ModParameters.CustomSkinTrue.Contains(__state.ClassInfo.id.id))
                 __instance.customizeData.SetCustomData(false);
             __instance.EquipCustomCoreBook(null);
-            ModParameters.DynamicNames.TryGetValue(newBook.ClassInfo.id.id, out var name);
+            ModParameters.DynamicNames.TryGetValue(__state.ClassInfo.id.id, out var name);
             __instance.SetTempName(ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals(name)).Value.Name);
-            __instance.EquipBook(newBook, isEnemySetting, true);
+            __instance.EquipBook(__state, isEnemySetting, true);
         }
 
         public static void TextDataModel_InitTextData(string currentLanguage)
@@ -139,7 +144,7 @@ namespace SephiraBundle_Se21341.Harmony
             List<BookModel> books, UIStoryKeyData storyKey)
         {
             var uiOrigin = __instance as UIOriginEquipPageList;
-            SephiraUtil.SetBooksData(uiOrigin,books,storyKey);
+            SephiraUtil.SetBooksData(uiOrigin, books, storyKey);
         }
 
         public static void UISpriteDataManager_GetStoryIcon(UISpriteDataManager __instance, ref string story)

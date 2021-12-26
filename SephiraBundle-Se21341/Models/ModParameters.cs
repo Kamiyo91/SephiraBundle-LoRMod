@@ -7,9 +7,8 @@ namespace SephiraBundle_Se21341.Models
     {
         public const string PackageId = "SephirahBundleSe21341.Mod";
         public static readonly Dictionary<string, Sprite> ArtWorks = new Dictionary<string, Sprite>();
-        public static Dictionary<int, string> NameTexts = new Dictionary<int, string>();
-        public static List<int> CustomSkinTrue = new List<int> { 10000001, 10000003 };
-        public static Dictionary<string, EffectTextModel> EffectTexts = new Dictionary<string, EffectTextModel>();
+        public static readonly List<int> CustomSkinTrue = new List<int> { 10000001, 10000003 };
+        public static readonly Dictionary<string, EffectTextModel> EffectTexts = new Dictionary<string, EffectTextModel>();
 
         public static Dictionary<int, LorId> DialogList = new Dictionary<int, LorId>
         {

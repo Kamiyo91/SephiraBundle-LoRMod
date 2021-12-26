@@ -77,7 +77,6 @@ namespace SephiraBundle_Se21341.Util
 
             files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/CharactersName")
                 .GetFiles();
-            ModParameters.NameTexts.Clear();
             foreach (var t in files)
                 using (var stringReader3 = new StringReader(File.ReadAllText(t.FullName)))
                 {
@@ -93,7 +92,6 @@ namespace SephiraBundle_Se21341.Util
                             var enemy = enumerator3.Current;
                             enemy.name = charactersNameRoot.nameList.Find(x => x.ID == enemy.id.id).name;
                             Singleton<EnemyUnitClassInfoList>.Instance.GetData(enemy.id).name = enemy.name;
-                            ModParameters.NameTexts.Add(enemy.id.id, enemy.name);
                         }
                     }
                 }
