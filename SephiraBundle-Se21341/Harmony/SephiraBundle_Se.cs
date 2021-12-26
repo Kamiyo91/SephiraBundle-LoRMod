@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using GameSave;
 using HarmonyLib;
 using LOR_DiceSystem;
 using SephiraBundle_Se21341.Models;
@@ -37,6 +38,9 @@ namespace SephiraBundle_Se21341.Harmony
                 new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("TextDataModel_InitTextData");
             harmony.Patch(typeof(TextDataModel).GetMethod("InitTextData", AccessTools.all),
+                null, new HarmonyMethod(method));
+            method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_LoadFromSaveData");
+            harmony.Patch(typeof(UnitDataModel).GetMethod("LoadFromSaveData", AccessTools.all),
                 null, new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookPrefix");
             var methodPostfix = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookPostfix");
@@ -114,6 +118,17 @@ namespace SephiraBundle_Se21341.Harmony
             ModParameters.DynamicNames.TryGetValue(__state.ClassInfo.id.id, out var name);
             __instance.SetTempName(ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals(name?.Item1)).Value.Name);
             __instance.EquipBook(__state, isEnemySetting, true);
+        }
+
+        public static void UnitDataModel_LoadFromSaveData(UnitDataModel __instance, SaveData data)
+        {
+            if (!__instance.isSephirah || __instance.OwnerSephirah != SephirahType.Keter) return;
+            var bookInstanceId = data.GetInt("bookInstanceId");
+            if (bookInstanceId <= 0) return;
+            var bookModel = Singleton<BookInventoryModel>.Instance.GetBookByInstanceId(bookInstanceId);
+            if (bookModel != null && bookModel.ClassInfo.id.packageId == ModParameters.PackageId &&
+                ModParameters.DynamicNames.ContainsKey(bookModel.ClassInfo.id.id))
+                __instance.EquipBook(bookModel);
         }
 
         public static void TextDataModel_InitTextData(string currentLanguage)
