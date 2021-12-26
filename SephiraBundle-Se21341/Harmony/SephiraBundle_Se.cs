@@ -40,7 +40,7 @@ namespace SephiraBundle_Se21341.Harmony
                 null, new HarmonyMethod(method));
             method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookPrefix");
             var methodPostfix = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookPostfix");
-            harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBook", AccessTools.all), 
+            harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBook", AccessTools.all),
                 new HarmonyMethod(method), new HarmonyMethod(methodPostfix));
             method = typeof(SephiraBundle_Se).GetMethod("General_SetOperatingPanel");
             harmony.Patch(typeof(UIInvenEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
@@ -82,13 +82,16 @@ namespace SephiraBundle_Se21341.Harmony
                 ____onlyCards.AddRange(____classInfo.EquipEffect.OnlyCard.Select(id =>
                     ItemXmlDataList.instance.GetCardItem(new LorId(ModParameters.PackageId, id))));
         }
+
         public static void General_SetOperatingPanel(object __instance,
             UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
         {
             var uiOrigin = __instance as UIOriginEquipPageSlot;
             SephiraUtil.SetOperationPanel(uiOrigin, ___button_Equip, ___txt_equipButton, ____bookDataModel);
         }
-        public static void UnitDataModel_EquipBookPrefix(UnitDataModel __instance,BookModel newBook, ref BookModel __state,bool force)
+
+        public static void UnitDataModel_EquipBookPrefix(UnitDataModel __instance, BookModel newBook,
+            ref BookModel __state, bool force)
         {
             if (force) return;
             __state = newBook;
@@ -97,8 +100,9 @@ namespace SephiraBundle_Se21341.Harmony
             __instance.ResetTempName();
             __instance.customizeData.SetCustomData(true);
         }
+
         public static void UnitDataModel_EquipBookPostfix(UnitDataModel __instance,
-            BookModel __state,bool isEnemySetting ,bool force)
+            BookModel __state, bool isEnemySetting, bool force)
         {
             if (force) return;
             if (__state == null || ModParameters.PackageId != __state.ClassInfo.workshopID ||
@@ -116,6 +120,7 @@ namespace SephiraBundle_Se21341.Harmony
             ModParameters.Language = currentLanguage;
             SephiraUtil.AddLocalize();
         }
+
         public static bool UILibrarianAppearanceInfoPanel_OnClickCustomizeButton(
             UILibrarianAppearanceInfoPanel __instance)
         {

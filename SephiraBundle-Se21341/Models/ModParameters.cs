@@ -8,14 +8,18 @@ namespace SephiraBundle_Se21341.Models
         public const string PackageId = "SephirahBundleSe21341.Mod";
         public static readonly Dictionary<string, Sprite> ArtWorks = new Dictionary<string, Sprite>();
         public static readonly List<int> CustomSkinTrue = new List<int> { 10000001, 10000003 };
-        public static readonly Dictionary<string, EffectTextModel> EffectTexts = new Dictionary<string, EffectTextModel>();
+
+        public static readonly Dictionary<string, EffectTextModel> EffectTexts =
+            new Dictionary<string, EffectTextModel>();
 
         public static Dictionary<int, LorId> DialogList = new Dictionary<int, LorId>
         {
             { 10000001, new LorId(10) }, { 10000002, new LorId(6) }, { 10000003, new LorId(8) }
         };
+
         public static readonly List<int> NoInventoryCardList = new List<int>
             { 9910001, 9910002, 9910003, 9910004, 9910005 };
+
         public static readonly List<int> UntransferablePassives = new List<int> { 1, 2, 3, 4 };
 
         public static readonly Dictionary<SephirahType, string> SephirahError = new Dictionary<SephirahType, string>
@@ -26,6 +30,7 @@ namespace SephiraBundle_Se21341.Models
             { 10000001, "RolandName_Se21341" }, { 10000002, "GeburaName_Se21341" }, { 10000003, "BinahName_Se21341" },
             { 10000004, "AngelaName_Se21341" }
         };
+
         public static readonly Dictionary<string, List<int>> SpritePreviewChange = new Dictionary<string, List<int>>
         {
             { "AngelaDefault_Se21341", new List<int> { 10000004 } }

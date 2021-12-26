@@ -11,7 +11,6 @@ using SephiraBundle_Se21341.Models;
 using TMPro;
 using UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SephiraBundle_Se21341.Util
 {
@@ -252,17 +251,19 @@ namespace SephiraBundle_Se21341.Util
                          ModParameters.UntransferablePassives.Contains(passive.id.id)))
                 passive.CanGivePassive = false;
         }
+
         public static void ChangeCardItem(ItemXmlDataList instance)
         {
             var dictionary = (Dictionary<LorId, DiceCardXmlInfo>)instance.GetType()
                 .GetField("_cardInfoTable", AccessTools.all).GetValue(instance);
             var list = (List<DiceCardXmlInfo>)instance.GetType()
                 .GetField("_cardInfoList", AccessTools.all).GetValue(instance);
-            foreach (var item in dictionary.Where(x => string.IsNullOrEmpty(x.Key.packageId)).Where(item => ModParameters.NoInventoryCardList.Contains(item.Key.id)).ToList())
-            {
+            foreach (var item in dictionary.Where(x => string.IsNullOrEmpty(x.Key.packageId))
+                         .Where(item => ModParameters.NoInventoryCardList.Contains(item.Key.id))
+                         .ToList())
                 SetCustomCardOption(CardOption.NoInventory, item.Key, false, ref dictionary, ref list);
-            }
         }
+
         private static void SetCustomCardOption(CardOption option, LorId id, bool keywordsRequired,
             ref Dictionary<LorId, DiceCardXmlInfo> cardDictionary, ref List<DiceCardXmlInfo> cardXmlList)
         {
@@ -270,6 +271,7 @@ namespace SephiraBundle_Se21341.Util
             cardDictionary[id] = diceCardXmlInfo2;
             cardXmlList.Add(diceCardXmlInfo2);
         }
+
         private static DiceCardXmlInfo CardOptionChange(DiceCardXmlInfo cardXml, List<CardOption> option)
         {
             return new DiceCardXmlInfo(cardXml.id)
@@ -291,11 +293,12 @@ namespace SephiraBundle_Se21341.Util
                 SkinChange = cardXml.SkinChange,
                 SkinChangeType = cardXml.SkinChangeType,
                 SkinHeight = cardXml.SkinHeight,
-                MapChange =  cardXml.MapChange,
+                MapChange = cardXml.MapChange,
                 PriorityScript = cardXml.PriorityScript,
                 Keywords = cardXml.Keywords
             };
         }
+
         public static void SetOperationPanel(UIOriginEquipPageSlot instance,
             UICustomGraphicObject button_Equip, TextMeshProUGUI txt_equipButton, BookModel bookDataModel)
         {
@@ -309,7 +312,11 @@ namespace SephiraBundle_Se21341.Util
         }
 
         private static bool IsLockedCharacter(UnitDataModel unitData)
-            => unitData.isSephirah && (unitData.OwnerSephirah == SephirahType.Binah || unitData.OwnerSephirah == SephirahType.Keter);
+        {
+            return unitData.isSephirah && (unitData.OwnerSephirah == SephirahType.Binah ||
+                                           unitData.OwnerSephirah == SephirahType.Keter);
+        }
+
         public static void SetBooksData(UIOriginEquipPageList instance,
             List<BookModel> books, UIStoryKeyData storyKey)
         {
@@ -320,6 +327,7 @@ namespace SephiraBundle_Se21341.Util
             textMeshProUGUI.text = ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals("ModName_Re21341")).Value
                 .Name;
         }
+
         public static void GetThumbSprite(LorId bookId, ref Sprite result)
         {
             if (bookId.packageId != ModParameters.PackageId) return;
