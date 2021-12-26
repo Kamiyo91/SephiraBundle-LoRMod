@@ -130,7 +130,7 @@ namespace SephiraBundle_Se21341.Harmony
             UIAlarmPopup.instance.SetAlarmText(ModParameters.EffectTexts
                 .FirstOrDefault(x =>
                     x.Key.Equals(ModParameters.DynamicNames
-                        .FirstOrDefault(y => __instance.unitData.bookItem.BookId.id == y.Key).Value)).Value.Desc);
+                        .FirstOrDefault(y => __instance.unitData.bookItem.BookId.id == y.Key).Value.Item1)).Value.Desc);
             return false;
         }
 
