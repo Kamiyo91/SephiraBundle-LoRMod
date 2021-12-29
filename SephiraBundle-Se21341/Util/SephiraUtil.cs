@@ -319,7 +319,7 @@ namespace SephiraBundle_Se21341.Util
             button_Equip.interactable = true;
             txt_equipButton.text = TextDataModel.GetText("ui_bookinventory_equipbook", Array.Empty<object>());
         }
-
+        
         private static bool IsLockedCharacter(UnitDataModel unitData)
         {
             return unitData.isSephirah && (unitData.OwnerSephirah == SephirahType.Binah ||
@@ -351,6 +351,16 @@ namespace SephiraBundle_Se21341.Util
                 ModParameters.DefaultSpritePreviewChange.FirstOrDefault(x => x.Value.Contains(bookId.id));
             if (!string.IsNullOrEmpty(defaultSprite.Key) && defaultSprite.Value.Any())
                 result = Resources.Load<Sprite>(defaultSprite.Key);
+        }
+        public static void SetEpisodeSlots(UIBookStoryChapterSlot instance, List<UIBookStoryEpisodeSlot> episodeSlots)
+        {
+            if (instance.chapter != 7) return;
+            var uibookStoryEpisodeSlot = episodeSlots.Find(x => x.books.Find(y => y.id.packageId == ModParameters.PackageId) != null);
+            if (uibookStoryEpisodeSlot == null) return;
+            var books = uibookStoryEpisodeSlot.books;
+            var uibookStoryEpisodeSlot2 = episodeSlots[episodeSlots.Count - 1];
+            books.RemoveAll(x => x.id.packageId == ModParameters.PackageId);
+            uibookStoryEpisodeSlot2.Init(instance.chapter, books, instance);
         }
     }
 }
