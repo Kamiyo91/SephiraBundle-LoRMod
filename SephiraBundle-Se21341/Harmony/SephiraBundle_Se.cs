@@ -61,6 +61,9 @@ namespace SephiraBundle_Se21341.Harmony
             method = typeof(SephiraBundle_Se).GetMethod("UIBookStoryChapterSlot_SetEpisodeSlots");
             harmony.Patch(typeof(UIBookStoryChapterSlot).GetMethod("SetEpisodeSlots", AccessTools.all),
                 null, new HarmonyMethod(method));
+            method = typeof(SephiraBundle_Se).GetMethod("DropBookInventoryModel_LoadFromSaveData");
+            harmony.Patch(typeof(DropBookInventoryModel).GetMethod("LoadFromSaveData", AccessTools.all),
+                null, new HarmonyMethod(method));
             ModParameters.Language = GlobalGameManager.Instance.CurrentOption.language;
             SephiraUtil.GetArtWorks(new DirectoryInfo(ModParameters.Path + "/ArtWork"));
             SephiraUtil.ChangeCardItem(ItemXmlDataList.instance);
@@ -122,10 +125,13 @@ namespace SephiraBundle_Se21341.Harmony
             __instance.SetTempName(ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals(name?.Item1)).Value.Name);
             __instance.EquipBook(__state, isEnemySetting, true);
         }
-        public static void UIBookStoryChapterSlot_SetEpisodeSlots(UIBookStoryChapterSlot __instance, UIBookStoryPanel ___panel, List<UIBookStoryEpisodeSlot> ___EpisodeSlots)
+
+        public static void UIBookStoryChapterSlot_SetEpisodeSlots(UIBookStoryChapterSlot __instance,
+            UIBookStoryPanel ___panel, List<UIBookStoryEpisodeSlot> ___EpisodeSlots)
         {
             SephiraUtil.SetEpisodeSlots(__instance, ___EpisodeSlots);
         }
+
         public static void UnitDataModel_LoadFromSaveData(UnitDataModel __instance, SaveData data)
         {
             if (!__instance.isSephirah || __instance.OwnerSephirah != SephirahType.Keter) return;
@@ -166,6 +172,12 @@ namespace SephiraBundle_Se21341.Harmony
         {
             if (story.Contains("Binah_Se21341"))
                 story = "Chapter1";
+        }
+
+        public static void DropBookInventoryModel_LoadFromSaveData(DropBookInventoryModel __instance)
+        {
+            var bookCount = __instance.GetBookCount(new LorId(ModParameters.PackageId, 1));
+            if (bookCount < 10) __instance.AddBook(new LorId(ModParameters.PackageId, 1), 10 - bookCount);
         }
     }
 }

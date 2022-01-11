@@ -23,9 +23,6 @@ namespace SephiraBundle_Se21341.Models
 
         public static readonly List<int> UntransferablePassives = new List<int> { 1, 2, 3, 4 };
 
-        public static readonly Dictionary<SephirahType, string> SephirahError = new Dictionary<SephirahType, string>
-            { { SephirahType.Binah, "BinahError_Se21341" }, { SephirahType.Keter, "KeterError_Se21341" } };
-
         public static readonly Dictionary<int, Tuple<string, SephirahType>> DynamicNames =
             new Dictionary<int, Tuple<string, SephirahType>>
             {

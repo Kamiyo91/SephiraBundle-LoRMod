@@ -74,27 +74,6 @@ namespace SephiraBundle_Se21341.Util
                         [ModParameters.PackageId] = bookDescRoot.bookDescList;
                 }
 
-            files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/CharactersName")
-                .GetFiles();
-            foreach (var t in files)
-                using (var stringReader3 = new StringReader(File.ReadAllText(t.FullName)))
-                {
-                    var charactersNameRoot =
-                        (CharactersNameRoot)new XmlSerializer(typeof(CharactersNameRoot)).Deserialize(
-                            stringReader3);
-                    using (var enumerator3 =
-                           Singleton<EnemyUnitClassInfoList>.Instance.GetAllWorkshopData()[ModParameters.PackageId]
-                               .GetEnumerator())
-                    {
-                        while (enumerator3.MoveNext())
-                        {
-                            var enemy = enumerator3.Current;
-                            enemy.name = charactersNameRoot.nameList.Find(x => x.ID == enemy.id.id).name;
-                            Singleton<EnemyUnitClassInfoList>.Instance.GetData(enemy.id).name = enemy.name;
-                        }
-                    }
-                }
-
             files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/BattleDialog")
                 .GetFiles();
             var dialogDictionary =
@@ -180,26 +159,6 @@ namespace SephiraBundle_Se21341.Util
                                 charactersNameRoot2.nameList.Find(x => x.ID == dropBook.id.id).name;
                             Singleton<DropBookXmlList>.Instance.GetData(dropBook.id).workshopName =
                                 dropBook.workshopName;
-                        }
-                    }
-                }
-
-            files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/StageName")
-                .GetFiles();
-            foreach (var t in files)
-                using (var stringReader6 = new StringReader(File.ReadAllText(t.FullName)))
-                {
-                    var charactersNameRoot3 =
-                        (CharactersNameRoot)new XmlSerializer(typeof(CharactersNameRoot)).Deserialize(
-                            stringReader6);
-                    using (var enumerator8 =
-                           Singleton<StageClassInfoList>.Instance.GetAllWorkshopData()[ModParameters.PackageId]
-                               .GetEnumerator())
-                    {
-                        while (enumerator8.MoveNext())
-                        {
-                            var stage = enumerator8.Current;
-                            stage.stageName = charactersNameRoot3.nameList.Find(x => x.ID == stage.id.id).name;
                         }
                     }
                 }
@@ -319,7 +278,7 @@ namespace SephiraBundle_Se21341.Util
             button_Equip.interactable = true;
             txt_equipButton.text = TextDataModel.GetText("ui_bookinventory_equipbook", Array.Empty<object>());
         }
-        
+
         private static bool IsLockedCharacter(UnitDataModel unitData)
         {
             return unitData.isSephirah && (unitData.OwnerSephirah == SephirahType.Binah ||
@@ -352,10 +311,12 @@ namespace SephiraBundle_Se21341.Util
             if (!string.IsNullOrEmpty(defaultSprite.Key) && defaultSprite.Value.Any())
                 result = Resources.Load<Sprite>(defaultSprite.Key);
         }
+
         public static void SetEpisodeSlots(UIBookStoryChapterSlot instance, List<UIBookStoryEpisodeSlot> episodeSlots)
         {
             if (instance.chapter != 7) return;
-            var uibookStoryEpisodeSlot = episodeSlots.Find(x => x.books.Find(y => y.id.packageId == ModParameters.PackageId) != null);
+            var uibookStoryEpisodeSlot =
+                episodeSlots.Find(x => x.books.Find(y => y.id.packageId == ModParameters.PackageId) != null);
             if (uibookStoryEpisodeSlot == null) return;
             var books = uibookStoryEpisodeSlot.books;
             var uibookStoryEpisodeSlot2 = episodeSlots[episodeSlots.Count - 1];

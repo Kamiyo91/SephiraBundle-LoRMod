@@ -62,7 +62,6 @@
     <Compile Include="Harmony\SephiraBundle_Se.cs" />
     <Compile Include="Models\EffectTextModel.cs" />
     <Compile Include="Models\ModParameters.cs" />
-    <Compile Include="PassiveAbility_Drop_Se21341.cs" />
     <Compile Include="PassiveAbility_Dialog_Se21341.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\SephiraUtil.cs" />
