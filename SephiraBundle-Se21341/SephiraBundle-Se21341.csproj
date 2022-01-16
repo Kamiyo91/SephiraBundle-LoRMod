@@ -59,7 +59,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Harmony\SephiraBundle_Se.cs" />
+    <Compile Include="Harmony\HarmonyPatch-Se21341.cs" />
+    <Compile Include="Harmony\ModInit-Se21341.cs" />
     <Compile Include="Models\EffectTextModel.cs" />
     <Compile Include="Models\ModParameters.cs" />
     <Compile Include="PassiveAbility_Dialog_Se21341.cs" />

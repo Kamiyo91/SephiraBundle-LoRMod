@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
+using System.Reflection.Emit;
 using GameSave;
 using HarmonyLib;
 using LOR_DiceSystem;
@@ -14,64 +12,12 @@ using UnityEngine;
 
 namespace SephiraBundle_Se21341.Harmony
 {
-    public class SephiraBundle_Se : ModInitializer
+    [HarmonyPatch]
+    public class HarmonyPatch_Se21341
     {
-        public override void OnInitializeMod()
-        {
-            ModParameters.Path = Path.GetDirectoryName(
-                Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path));
-            var harmony = new HarmonyLib.Harmony("LOR.SephirahBundleSe21341_MOD");
-            var method = typeof(SephiraBundle_Se).GetMethod("BookModel_SetXmlInfo");
-            harmony.Patch(typeof(BookModel).GetMethod("SetXmlInfo", AccessTools.all), null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("General_GetThumbSprite");
-            harmony.Patch(typeof(BookModel).GetMethod("GetThumbSprite", AccessTools.all), null,
-                new HarmonyMethod(method));
-            harmony.Patch(typeof(BookXmlInfo).GetMethod("GetThumbSprite", AccessTools.all), null,
-                new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("General_SetBooksData");
-            harmony.Patch(typeof(UISettingInvenEquipPageListSlot).GetMethod("SetBooksData", AccessTools.all),
-                null, new HarmonyMethod(method));
-            harmony.Patch(typeof(UIInvenEquipPageListSlot).GetMethod("SetBooksData", AccessTools.all),
-                null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UISpriteDataManager_GetStoryIcon");
-            harmony.Patch(typeof(UISpriteDataManager).GetMethod("GetStoryIcon", AccessTools.all),
-                new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("TextDataModel_InitTextData");
-            harmony.Patch(typeof(TextDataModel).GetMethod("InitTextData", AccessTools.all),
-                null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_LoadFromSaveData");
-            harmony.Patch(typeof(UnitDataModel).GetMethod("LoadFromSaveData", AccessTools.all),
-                null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookPrefix");
-            var methodPostfix = typeof(SephiraBundle_Se).GetMethod("UnitDataModel_EquipBookPostfix");
-            harmony.Patch(typeof(UnitDataModel).GetMethod("EquipBook", AccessTools.all),
-                new HarmonyMethod(method), new HarmonyMethod(methodPostfix));
-            method = typeof(SephiraBundle_Se).GetMethod("General_SetOperatingPanel");
-            harmony.Patch(typeof(UIInvenEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
-                null, new HarmonyMethod(method));
-            harmony.Patch(typeof(UIInvenLeftEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
-                null, new HarmonyMethod(method));
-            harmony.Patch(typeof(UISettingInvenEquipPageSlot).GetMethod("SetOperatingPanel", AccessTools.all),
-                null, new HarmonyMethod(method));
-            harmony.Patch(typeof(UISettingInvenEquipPageLeftSlot).GetMethod("SetOperatingPanel", AccessTools.all),
-                null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UILibrarianAppearanceInfoPanel_OnClickCustomizeButton");
-            harmony.Patch(typeof(UILibrarianAppearanceInfoPanel).GetMethod("OnClickCustomizeButton", AccessTools.all),
-                new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("UIBookStoryChapterSlot_SetEpisodeSlots");
-            harmony.Patch(typeof(UIBookStoryChapterSlot).GetMethod("SetEpisodeSlots", AccessTools.all),
-                null, new HarmonyMethod(method));
-            method = typeof(SephiraBundle_Se).GetMethod("DropBookInventoryModel_LoadFromSaveData");
-            harmony.Patch(typeof(DropBookInventoryModel).GetMethod("LoadFromSaveData", AccessTools.all),
-                null, new HarmonyMethod(method));
-            ModParameters.Language = GlobalGameManager.Instance.CurrentOption.language;
-            SephiraUtil.GetArtWorks(new DirectoryInfo(ModParameters.Path + "/ArtWork"));
-            SephiraUtil.ChangeCardItem(ItemXmlDataList.instance);
-            SephiraUtil.ChangePassiveItem();
-            SephiraUtil.AddLocalize();
-            SephiraUtil.RemoveError();
-        }
-
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(BookModel), "GetThumbSprite")]
+        [HarmonyPatch(typeof(BookXmlInfo), "GetThumbSprite")]
         public static void General_GetThumbSprite(object __instance, ref Sprite __result)
         {
             switch (__instance)
@@ -85,6 +31,8 @@ namespace SephiraBundle_Se21341.Harmony
             }
         }
 
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(BookModel), "SetXmlInfo")]
         public static void BookModel_SetXmlInfo(BookModel __instance, BookXmlInfo ____classInfo,
             ref List<DiceCardXmlInfo> ____onlyCards)
         {
@@ -93,6 +41,11 @@ namespace SephiraBundle_Se21341.Harmony
                     ItemXmlDataList.instance.GetCardItem(new LorId(ModParameters.PackageId, id))));
         }
 
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(UIInvenEquipPageSlot), "SetOperatingPanel")]
+        [HarmonyPatch(typeof(UIInvenLeftEquipPageSlot), "SetOperatingPanel")]
+        [HarmonyPatch(typeof(UISettingInvenEquipPageSlot), "SetOperatingPanel")]
+        [HarmonyPatch(typeof(UISettingInvenEquipPageLeftSlot), "SetOperatingPanel")]
         public static void General_SetOperatingPanel(object __instance,
             UICustomGraphicObject ___button_Equip, TextMeshProUGUI ___txt_equipButton, BookModel ____bookDataModel)
         {
@@ -100,6 +53,8 @@ namespace SephiraBundle_Se21341.Harmony
             SephiraUtil.SetOperationPanel(uiOrigin, ___button_Equip, ___txt_equipButton, ____bookDataModel);
         }
 
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(UnitDataModel), "EquipBook")]
         public static void UnitDataModel_EquipBookPrefix(UnitDataModel __instance, BookModel newBook,
             ref BookModel __state, bool force)
         {
@@ -111,6 +66,8 @@ namespace SephiraBundle_Se21341.Harmony
             __instance.customizeData.SetCustomData(true);
         }
 
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(UnitDataModel), "EquipBook")]
         public static void UnitDataModel_EquipBookPostfix(UnitDataModel __instance,
             BookModel __state, bool isEnemySetting, bool force)
         {
@@ -126,12 +83,16 @@ namespace SephiraBundle_Se21341.Harmony
             __instance.EquipBook(__state, isEnemySetting, true);
         }
 
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(UIBookStoryChapterSlot), "SetEpisodeSlots")]
         public static void UIBookStoryChapterSlot_SetEpisodeSlots(UIBookStoryChapterSlot __instance,
             UIBookStoryPanel ___panel, List<UIBookStoryEpisodeSlot> ___EpisodeSlots)
         {
             SephiraUtil.SetEpisodeSlots(__instance, ___EpisodeSlots);
         }
 
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(UnitDataModel), "LoadFromSaveData")]
         public static void UnitDataModel_LoadFromSaveData(UnitDataModel __instance, SaveData data)
         {
             if (!__instance.isSephirah || __instance.OwnerSephirah != SephirahType.Keter) return;
@@ -143,12 +104,16 @@ namespace SephiraBundle_Se21341.Harmony
                 __instance.EquipBook(bookModel);
         }
 
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(TextDataModel), "InitTextData")]
         public static void TextDataModel_InitTextData(string currentLanguage)
         {
             ModParameters.Language = currentLanguage;
             SephiraUtil.AddLocalize();
         }
 
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(UILibrarianAppearanceInfoPanel), "OnClickCustomizeButton")]
         public static bool UILibrarianAppearanceInfoPanel_OnClickCustomizeButton(
             UILibrarianAppearanceInfoPanel __instance)
         {
@@ -161,6 +126,9 @@ namespace SephiraBundle_Se21341.Harmony
             return false;
         }
 
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(UISettingInvenEquipPageListSlot), "SetBooksData")]
+        [HarmonyPatch(typeof(UIInvenEquipPageListSlot), "SetBooksData")]
         public static void General_SetBooksData(object __instance,
             List<BookModel> books, UIStoryKeyData storyKey)
         {
@@ -168,16 +136,56 @@ namespace SephiraBundle_Se21341.Harmony
             SephiraUtil.SetBooksData(uiOrigin, books, storyKey);
         }
 
-        public static void UISpriteDataManager_GetStoryIcon(UISpriteDataManager __instance, ref string story)
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(UISpriteDataManager), "GetStoryIcon")]
+        public static void UISpriteDataManager_GetStoryIcon(ref string story)
         {
             if (story.Contains("Binah_Se21341"))
                 story = "Chapter1";
         }
 
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(DropBookInventoryModel), "LoadFromSaveData")]
         public static void DropBookInventoryModel_LoadFromSaveData(DropBookInventoryModel __instance)
         {
             var bookCount = __instance.GetBookCount(new LorId(ModParameters.PackageId, 1));
             if (bookCount < 10) __instance.AddBook(new LorId(ModParameters.PackageId, 1), 10 - bookCount);
+        }
+
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(BattleUnitCardsInHandUI), "UpdateCardList")]
+        public static IEnumerable<CodeInstruction> BattleUnitCardsInHandUI_UpdateCardList(
+            IEnumerable<CodeInstruction> instructions)
+        {
+            var codes = new List<CodeInstruction>(instructions);
+            for (var i = 0; i < codes.Count; i++)
+            {
+                if (codes[i].opcode != OpCodes.Ldloc_2 || codes[i + 1].opcode != OpCodes.Callvirt ||
+                    codes[i + 2].opcode != OpCodes.Callvirt || codes[i + 3].opcode != OpCodes.Ldc_I4 ||
+                    (int)codes[i + 3].operand != 250022 || codes[i + 4].opcode != OpCodes.Call ||
+                    codes[i + 5].opcode != OpCodes.Brfalse) continue;
+                var addedCodes = new List<CodeInstruction>();
+                foreach (var codeToAdd in ModParameters.NoEgoFloorUnit.Select(unitId => new List<CodeInstruction>
+                         {
+                             codes[i],
+                             codes[i + 1],
+                             codes[i + 2],
+                             new CodeInstruction(OpCodes.Ldstr, ModParameters.PackageId),
+                             new CodeInstruction(OpCodes.Ldc_I4, unitId),
+                             new CodeInstruction(OpCodes.Newobj,
+                                 AccessTools.Constructor(typeof(LorId), new[] { typeof(string), typeof(int) })),
+                             new CodeInstruction(OpCodes.Call,
+                                 AccessTools.Method(typeof(LorId), "op_Inequality",
+                                     new[] { typeof(LorId), typeof(LorId) })),
+                             codes[i + 5]
+                         }))
+                    addedCodes.AddRange(codeToAdd);
+                codes.InsertRange(i + 6, addedCodes);
+                Debug.Log("Patched");
+                break;
+            }
+
+            return codes.AsEnumerable();
         }
     }
 }

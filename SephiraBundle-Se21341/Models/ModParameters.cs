@@ -32,6 +32,8 @@ namespace SephiraBundle_Se21341.Models
                 { 10000004, new Tuple<string, SephirahType>("AngelaName_Se21341", SephirahType.None) }
             };
 
+        public static readonly List<int> NoEgoFloorUnit = new List<int> { 10000004, 10000002 };
+
         public static readonly Dictionary<string, List<int>> SpritePreviewChange = new Dictionary<string, List<int>>
         {
             { "AngelaDefault_Se21341", new List<int> { 10000004 } }
