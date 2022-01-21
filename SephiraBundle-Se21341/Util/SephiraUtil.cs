@@ -128,40 +128,6 @@ namespace SephiraBundle_Se21341.Util
                         }
                     }
                 }
-
-            files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/DropBooks")
-                .GetFiles();
-            foreach (var t in files)
-                using (var stringReader5 = new StringReader(File.ReadAllText(t.FullName)))
-                {
-                    var charactersNameRoot2 =
-                        (CharactersNameRoot)new XmlSerializer(typeof(CharactersNameRoot)).Deserialize(
-                            stringReader5);
-                    using (var enumerator6 =
-                           Singleton<DropBookXmlList>.Instance.GetAllWorkshopData()[ModParameters.PackageId]
-                               .GetEnumerator())
-                    {
-                        while (enumerator6.MoveNext())
-                        {
-                            var dropBook = enumerator6.Current;
-                            dropBook.workshopName =
-                                charactersNameRoot2.nameList.Find(x => x.ID == dropBook.id.id).name;
-                        }
-                    }
-
-                    using (var enumerator7 = Singleton<DropBookXmlList>.Instance.GetList()
-                               .FindAll(x => x.id.packageId == ModParameters.PackageId).GetEnumerator())
-                    {
-                        while (enumerator7.MoveNext())
-                        {
-                            var dropBook = enumerator7.Current;
-                            dropBook.workshopName =
-                                charactersNameRoot2.nameList.Find(x => x.ID == dropBook.id.id).name;
-                            Singleton<DropBookXmlList>.Instance.GetData(dropBook.id).workshopName =
-                                dropBook.workshopName;
-                        }
-                    }
-                }
         }
 
         public static void RemoveError()
