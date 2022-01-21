@@ -145,11 +145,13 @@ namespace SephiraBundle_Se21341.Harmony
         }
 
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(DropBookInventoryModel), "LoadFromSaveData")]
-        public static void DropBookInventoryModel_LoadFromSaveData(DropBookInventoryModel __instance)
+        [HarmonyPatch(typeof(BookInventoryModel), "LoadFromSaveData")]
+        public static void BookInventoryModel_LoadFromSaveData(BookInventoryModel __instance)
         {
-            var bookCount = __instance.GetBookCount(new LorId(ModParameters.PackageId, 1));
-            if (bookCount < 10) __instance.AddBook(new LorId(ModParameters.PackageId, 1), 10 - bookCount);
+            foreach (var keypageId in ModParameters.KeypageIds.Where(keypageId =>
+                         !Singleton<BookInventoryModel>.Instance.GetBookListAll().Exists(x =>
+                             x.GetBookClassInfoId() == new LorId(ModParameters.PackageId, keypageId))))
+                __instance.CreateBook(new LorId(ModParameters.PackageId, keypageId));
         }
 
         [HarmonyTranspiler]
