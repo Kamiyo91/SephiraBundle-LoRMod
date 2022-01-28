@@ -11,6 +11,7 @@ using SephiraBundle_Se21341.Models;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SephiraBundle_Se21341.Util
 {
@@ -279,6 +280,47 @@ namespace SephiraBundle_Se21341.Util
             var uibookStoryEpisodeSlot2 = episodeSlots[episodeSlots.Count - 1];
             books.RemoveAll(x => x.id.packageId == ModParameters.PackageId);
             uibookStoryEpisodeSlot2.Init(instance.chapter, books, instance);
+        }
+
+        public static IEnumerable<BattleDiceCardModel> ReloadEgoHandUI(BattleUnitCardsInHandUI instance,
+            List<BattleDiceCardUI> cardList, BattleUnitModel unit, List<BattleDiceCardUI> activatedCardList,
+            ref float xInt)
+        {
+            var list = unit.personalEgoDetail.GetHand();
+            if (list.Count >= 9) xInt = 65f * 8f / list.Count;
+            var num = 0;
+            activatedCardList.Clear();
+            while (num < list.Count)
+            {
+                cardList[num].gameObject.SetActive(true);
+                cardList[num].SetCard(list[num], Array.Empty<BattleDiceCardUI.Option>());
+                cardList[num].SetDefault();
+                cardList[num].ResetSiblingIndex();
+                activatedCardList.Add(cardList[num]);
+                num++;
+            }
+
+            for (var i = 0; i < activatedCardList.Count; i++)
+            {
+                var navigation = default(Navigation);
+                navigation.mode = Navigation.Mode.Explicit;
+                if (i > 0)
+                    navigation.selectOnLeft = activatedCardList[i - 1].selectable;
+                else if (activatedCardList.Count >= 2)
+                    navigation.selectOnLeft = activatedCardList[activatedCardList.Count - 1].selectable;
+                else
+                    navigation.selectOnLeft = null;
+                if (i < activatedCardList.Count - 1)
+                    navigation.selectOnRight = activatedCardList[i + 1].selectable;
+                else if (activatedCardList.Count >= 2)
+                    navigation.selectOnRight = activatedCardList[0].selectable;
+                else
+                    navigation.selectOnRight = null;
+                activatedCardList[i].selectable.navigation = navigation;
+                activatedCardList[i].selectable.parentSelectable = instance.selectablePanel;
+            }
+
+            return list;
         }
     }
 }

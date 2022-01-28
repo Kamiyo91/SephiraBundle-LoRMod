@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Harmony\FailSafePatch-Se21341.cs" />
     <Compile Include="Harmony\HarmonyPatch-Se21341.cs" />
     <Compile Include="Harmony\ModInit-Se21341.cs" />
     <Compile Include="Models\EffectTextModel.cs" />

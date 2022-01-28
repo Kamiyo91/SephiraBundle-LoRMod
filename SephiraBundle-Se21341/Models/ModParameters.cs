@@ -20,8 +20,9 @@ namespace SephiraBundle_Se21341.Models
 
         public static readonly List<int> KeypageIds = new List<int>
         {
-            10000001,10000002,10000003,10000004
+            10000001, 10000002, 10000003, 10000004
         };
+
         public static readonly List<int> NoInventoryCardList = new List<int>
             { 9910001, 9910002, 9910003, 9910004, 9910005 };
 
@@ -50,6 +51,7 @@ namespace SephiraBundle_Se21341.Models
                 { "Sprites/Books/Thumb/250022", new List<int> { 10000002 } },
                 { "Sprites/Books/Thumb/8", new List<int> { 10000003 } }
             };
+
         public static string Path { get; set; }
         public static string Language { get; set; }
     }

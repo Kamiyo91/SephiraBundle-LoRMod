@@ -160,12 +160,14 @@ namespace SephiraBundle_Se21341.Harmony
             IEnumerable<CodeInstruction> instructions)
         {
             var codes = new List<CodeInstruction>(instructions);
+            var patchSuccess = false;
             for (var i = 0; i < codes.Count; i++)
             {
                 if (codes[i].opcode != OpCodes.Ldloc_2 || codes[i + 1].opcode != OpCodes.Callvirt ||
                     codes[i + 2].opcode != OpCodes.Callvirt || codes[i + 3].opcode != OpCodes.Ldc_I4 ||
                     (int)codes[i + 3].operand != 250022 || codes[i + 4].opcode != OpCodes.Call ||
                     codes[i + 5].opcode != OpCodes.Brfalse) continue;
+                patchSuccess = true;
                 var addedCodes = new List<CodeInstruction>();
                 foreach (var codeToAdd in ModParameters.NoEgoFloorUnit.Select(unitId => new List<CodeInstruction>
                          {
@@ -187,6 +189,8 @@ namespace SephiraBundle_Se21341.Harmony
                 break;
             }
 
+            if (!patchSuccess)
+                HarmonyLib.Harmony.CreateAndPatchAll(typeof(FailSafePatch_Se21341), "LOR.SephirahBundleSe21341_MOD");
             return codes.AsEnumerable();
         }
     }
