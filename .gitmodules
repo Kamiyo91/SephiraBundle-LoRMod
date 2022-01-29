@@ -1,0 +1,3 @@
+[submodule "SephiraBundle-Se21341/Util/CustomMapUtility"]
+	path = SephiraBundle-Se21341/Util/CustomMapUtility
+	url = https://github.com/uGuardian/LoR_CustomMapUtility.git
