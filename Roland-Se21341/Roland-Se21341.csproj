@@ -65,7 +65,6 @@
     <Compile Include="Passives\PassiveAbility_BlackSilenceEgoMask_Se21341.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\SephiraBundle-Se21341\SephiraBundle-Se21341.csproj">
       <Project>{4A829886-0565-4C09-BB06-1812DC68E1FC}</Project>
