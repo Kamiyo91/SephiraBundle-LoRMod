@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NOMP3</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -26,7 +26,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NOMP3</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -48,6 +48,10 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\Unity.TextMeshPro.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
@@ -57,17 +61,44 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Harmony\FailSafePatch-Se21341.cs" />
     <Compile Include="Harmony\HarmonyPatch-Se21341.cs" />
     <Compile Include="Harmony\ModInit-Se21341.cs" />
     <Compile Include="Models\EffectTextModel.cs" />
+    <Compile Include="Models\MapModel.cs" />
+    <Compile Include="Models\MechUtilBaseModel.cs" />
+    <Compile Include="Util\CustomMapUtility\Assemblies\CustomMapUtility.cs" />
+    <Compile Include="Util\CustomMapUtility\Assemblies\Wav.cs" />
+    <Compile Include="Util\CustomMapUtility\Template.cs" />
+    <Compile Include="Util\MapUtil.cs" />
+    <Compile Include="Util\MechUtilBase.cs" />
     <Compile Include="Models\ModParameters.cs" />
     <Compile Include="PassiveAbility_Dialog_Se21341.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\SephiraUtil.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Util\CustomMapUtility\README.md" />
+    <None Include="Util\CustomMapUtility\Resource\CustomAudio\README.md" />
+    <None Include="Util\CustomMapUtility\Resource\Stage\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Background.png" />
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Floor.png" />
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\FloorUnder.png" />
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Scratch1.png" />
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Scratch2.png" />
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Scratch3.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

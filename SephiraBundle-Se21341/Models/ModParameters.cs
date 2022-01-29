@@ -20,7 +20,7 @@ namespace SephiraBundle_Se21341.Models
 
         public static readonly List<int> KeypageIds = new List<int>
         {
-            10000001, 10000002, 10000003, 10000004
+            10000001, 10000002, 10000003, 10000004, 10000005, 10000006
         };
 
         public static readonly List<int> NoInventoryCardList = new List<int>
@@ -41,7 +41,8 @@ namespace SephiraBundle_Se21341.Models
 
         public static readonly Dictionary<string, List<int>> SpritePreviewChange = new Dictionary<string, List<int>>
         {
-            { "AngelaDefault_Se21341", new List<int> { 10000004 } }
+            { "AngelaDefault_Se21341", new List<int> { 10000004 } },
+            { "FragmentDefault_Se21341", new List<int> { 10000005, 10000006 } }
         };
 
         public static readonly Dictionary<string, List<int>> DefaultSpritePreviewChange =
