@@ -20,7 +20,7 @@ namespace Roland_Se21341.Passives
                 Owner = owner,
                 HasEgo = true,
                 SkinName = "BlackSilence3",
-                EgoMapName = "BlackSilenceMassEgo_Re21341",
+                EgoMapName = "BlackSilenceMassEgo_Se21341",
                 EgoMapType = typeof(BlackSilence_Se21341MapManager),
                 FlY = 0.285f,
                 EgoType = typeof(BattleUnitBuf_BlackSilenceEgoMask_Se21341),

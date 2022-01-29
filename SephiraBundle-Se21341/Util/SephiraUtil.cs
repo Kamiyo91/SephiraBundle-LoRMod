@@ -40,6 +40,40 @@ namespace SephiraBundle_Se21341.Util
                     }
                 }
 
+            files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/BattlesCards")
+                .GetFiles();
+            foreach (var t in files)
+                using (var stringReader2 = new StringReader(File.ReadAllText(t.FullName)))
+                {
+                    var battleCardDescRoot =
+                        (BattleCardDescRoot)new XmlSerializer(typeof(BattleCardDescRoot)).Deserialize(
+                            stringReader2);
+                    using (var enumerator =
+                           ItemXmlDataList.instance.GetAllWorkshopData()[ModParameters.PackageId].GetEnumerator())
+                    {
+                        while (enumerator.MoveNext())
+                        {
+                            var card = enumerator.Current;
+                            card.workshopName = battleCardDescRoot.cardDescList.Find(x => x.cardID == card.id.id)
+                                .cardName;
+                        }
+                    }
+
+                    typeof(ItemXmlDataList).GetField("_cardInfoTable", AccessTools.all)
+                        .GetValue(ItemXmlDataList.instance);
+                    using (var enumerator2 = ItemXmlDataList.instance.GetCardList()
+                               .FindAll(x => x.id.packageId == ModParameters.PackageId).GetEnumerator())
+                    {
+                        while (enumerator2.MoveNext())
+                        {
+                            var card = enumerator2.Current;
+                            card.workshopName = battleCardDescRoot.cardDescList.Find(x => x.cardID == card.id.id)
+                                .cardName;
+                            ItemXmlDataList.instance.GetCardItem(card.id).workshopName = card.workshopName;
+                        }
+                    }
+                }
+
             files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language + "/Books").GetFiles();
             foreach (var t in files)
                 using (var stringReader4 = new StringReader(File.ReadAllText(t.FullName)))
@@ -129,6 +163,23 @@ namespace SephiraBundle_Se21341.Util
                         }
                     }
                 }
+
+            var cardAbilityDictionary = typeof(BattleCardAbilityDescXmlList).GetField("_dictionary", AccessTools.all)
+                    ?.GetValue(Singleton<BattleCardAbilityDescXmlList>.Instance) as
+                Dictionary<string, BattleCardAbilityDesc>;
+            files = new DirectoryInfo(ModParameters.Path + "/Localize/" + ModParameters.Language +
+                                      "/BattleCardAbilities").GetFiles();
+            foreach (var t in files)
+                using (var stringReader8 = new StringReader(File.ReadAllText(t.FullName)))
+                {
+                    foreach (var battleCardAbilityDesc in
+                             ((BattleCardAbilityDescRoot)new XmlSerializer(typeof(BattleCardAbilityDescRoot))
+                                 .Deserialize(stringReader8)).cardDescList)
+                    {
+                        cardAbilityDictionary.Remove(battleCardAbilityDesc.id);
+                        cardAbilityDictionary.Add(battleCardAbilityDesc.id, battleCardAbilityDesc);
+                    }
+                }
         }
 
         public static void RemoveError()
@@ -178,10 +229,21 @@ namespace SephiraBundle_Se21341.Util
             foreach (var item in dictionary.Where(x => string.IsNullOrEmpty(x.Key.packageId))
                          .Where(item => ModParameters.NoInventoryCardList.Contains(item.Key.id))
                          .ToList())
-                SetCustomCardOption(CardOption.NoInventory, item.Key, false, ref dictionary, ref list);
+                SetCustomCardOption(CardOption.NoInventory, item.Key, ref dictionary, ref list);
+            foreach (var item in dictionary.Where(x => x.Key.packageId == ModParameters.PackageId).ToList())
+            {
+                if (ModParameters.PersonalCardList.Contains(item.Key.id))
+                {
+                    SetCustomCardOption(CardOption.Personal, item.Key, ref dictionary, ref list);
+                    continue;
+                }
+
+                if (ModParameters.EgoPersonalCardList.Contains(item.Key.id))
+                    SetCustomCardOption(CardOption.EgoPersonal, item.Key, ref dictionary, ref list);
+            }
         }
 
-        private static void SetCustomCardOption(CardOption option, LorId id, bool keywordsRequired,
+        private static void SetCustomCardOption(CardOption option, LorId id,
             ref Dictionary<LorId, DiceCardXmlInfo> cardDictionary, ref List<DiceCardXmlInfo> cardXmlList)
         {
             var diceCardXmlInfo2 = CardOptionChange(cardDictionary[id], new List<CardOption> { option });
@@ -219,18 +281,11 @@ namespace SephiraBundle_Se21341.Util
         public static void SetOperationPanel(UIOriginEquipPageSlot instance,
             UICustomGraphicObject button_Equip, TextMeshProUGUI txt_equipButton, BookModel bookDataModel)
         {
-            if (bookDataModel.ClassInfo.id.packageId != ModParameters.PackageId || instance.BookDataModel == null ||
+            if (bookDataModel == null || bookDataModel.ClassInfo.id.packageId != ModParameters.PackageId ||
+                instance.BookDataModel == null ||
                 instance.BookDataModel.owner != null) return;
             var currentUnit = UI.UIController.Instance.CurrentUnit;
             if (currentUnit == null) return;
-            if (!currentUnit.isSephirah &&
-                ModParameters.DynamicNames.FirstOrDefault(x => x.Key == bookDataModel.ClassInfo.id.id).Value.Item2 ==
-                currentUnit.OwnerSephirah)
-            {
-                button_Equip.interactable = false;
-                txt_equipButton.text = TextDataModel.GetText("ui_equippage_notequip", Array.Empty<object>());
-            }
-
             if (!IsLockedCharacter(currentUnit) ||
                 !ModParameters.DynamicNames.ContainsKey(bookDataModel.ClassInfo.id.id)) return;
             button_Equip.interactable = true;

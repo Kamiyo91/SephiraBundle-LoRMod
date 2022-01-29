@@ -26,6 +26,11 @@ namespace SephiraBundle_Se21341.Models
         public static readonly List<int> NoInventoryCardList = new List<int>
             { 9910001, 9910002, 9910003, 9910004, 9910005 };
 
+        public static readonly List<int> PersonalCardList = new List<int>
+            { 31 };
+
+        public static readonly List<int> EgoPersonalCardList = new List<int> { 30 };
+
         public static readonly List<int> UntransferablePassives = new List<int> { 1, 2, 3, 4 };
 
         public static readonly Dictionary<int, Tuple<string, SephirahType>> DynamicNames =

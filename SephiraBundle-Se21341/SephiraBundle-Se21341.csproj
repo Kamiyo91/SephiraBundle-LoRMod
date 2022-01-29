@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SephiraBundle_Se21341</RootNamespace>
-    <AssemblyName>SephiraBundle-Se21341</AssemblyName>
+    <AssemblyName>0SephiraBundle-Se21341</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonPassives\PassiveAbility_NotEquip_Se21341.cs" />
     <Compile Include="Harmony\FailSafePatch-Se21341.cs" />
     <Compile Include="Harmony\HarmonyPatch-Se21341.cs" />
     <Compile Include="Harmony\ModInit-Se21341.cs" />
@@ -79,26 +80,13 @@
     <Compile Include="Models\MechUtilBaseModel.cs" />
     <Compile Include="Util\CustomMapUtility\Assemblies\CustomMapUtility.cs" />
     <Compile Include="Util\CustomMapUtility\Assemblies\Wav.cs" />
-    <Compile Include="Util\CustomMapUtility\Template.cs" />
     <Compile Include="Util\MapUtil.cs" />
     <Compile Include="Util\MechUtilBase.cs" />
     <Compile Include="Models\ModParameters.cs" />
-    <Compile Include="PassiveAbility_Dialog_Se21341.cs" />
+    <Compile Include="CommonPassives\PassiveAbility_Dialog_Se21341.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\SephiraUtil.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Util\CustomMapUtility\README.md" />
-    <None Include="Util\CustomMapUtility\Resource\CustomAudio\README.md" />
-    <None Include="Util\CustomMapUtility\Resource\Stage\README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Background.png" />
-    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Floor.png" />
-    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\FloorUnder.png" />
-    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Scratch1.png" />
-    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Scratch2.png" />
-    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Scratch3.png" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

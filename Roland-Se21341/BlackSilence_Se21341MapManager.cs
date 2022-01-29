@@ -7,7 +7,7 @@ namespace Roland_Se21341
     {
         private GameObject _aura;
         private BlackSilence4thMapManager _mapGameObject;
-        protected override string[] CustomBGMs => new[] { "BlackSilence_Re21341.ogg" };
+        protected override string[] CustomBGMs => new[] { "BlackSilence_Se21341.ogg" };
 
         public override void InitializeMap()
         {
