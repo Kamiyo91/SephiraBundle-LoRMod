@@ -41,17 +41,12 @@ namespace SephiraBundle_Se21341.Util
                 mapList?.RemoveAll(x => x.name.Contains(name));
         }
 
-        public static void ReturnFromEgoMap(string mapName, List<int> ids, bool isAssimilationMap = false)
+        public static void ReturnFromEgoMap(string mapName, List<int> ids)
         {
             if (CheckStageMap(ids) || Singleton<StageController>.Instance.GetStageModel().ClassInfo.stageType ==
                 StageType.Creature) return;
             CustomMapHandler.RemoveCustomEgoMapByAssimilation(mapName);
             RemoveValueInAddedMap(mapName);
-            if (isAssimilationMap) MapChangedValue(true);
-            Singleton<StageController>.Instance.CheckMapChange();
-            SingletonBehavior<BattleSoundManager>.Instance.SetEnemyTheme(SingletonBehavior<BattleSceneRoot>
-                .Instance.currentMapObject.mapBgm);
-            SingletonBehavior<BattleSoundManager>.Instance.CheckTheme();
         }
 
         private static void MapChangedValue(bool value)
