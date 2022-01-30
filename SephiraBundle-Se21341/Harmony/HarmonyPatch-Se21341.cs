@@ -154,44 +154,20 @@ namespace SephiraBundle_Se21341.Harmony
                 __instance.CreateBook(new LorId(ModParameters.PackageId, keypageId));
         }
 
-        [HarmonyTranspiler]
+        [HarmonyPostfix]
         [HarmonyPatch(typeof(BattleUnitCardsInHandUI), "UpdateCardList")]
-        public static IEnumerable<CodeInstruction> BattleUnitCardsInHandUI_UpdateCardList(
-            IEnumerable<CodeInstruction> instructions)
+        public static void BattleUnitCardsInHandUI_UpdateCardList(BattleUnitCardsInHandUI __instance,
+            List<BattleDiceCardUI> ____activatedCardList, ref float ____xInterval)
         {
-            var codes = new List<CodeInstruction>(instructions);
-            var patchSuccess = false;
-            for (var i = 0; i < codes.Count; i++)
-            {
-                if (codes[i].opcode != OpCodes.Ldloc_2 || codes[i + 1].opcode != OpCodes.Callvirt ||
-                    codes[i + 2].opcode != OpCodes.Callvirt || codes[i + 3].opcode != OpCodes.Ldc_I4 ||
-                    (int)codes[i + 3].operand != 250022 || codes[i + 4].opcode != OpCodes.Call ||
-                    codes[i + 5].opcode != OpCodes.Brfalse) continue;
-                patchSuccess = true;
-                var addedCodes = new List<CodeInstruction>();
-                foreach (var codeToAdd in ModParameters.NoEgoFloorUnit.Select(unitId => new List<CodeInstruction>
-                         {
-                             codes[i],
-                             codes[i + 1],
-                             codes[i + 2],
-                             new CodeInstruction(OpCodes.Ldstr, ModParameters.PackageId),
-                             new CodeInstruction(OpCodes.Ldc_I4, unitId),
-                             new CodeInstruction(OpCodes.Newobj,
-                                 AccessTools.Constructor(typeof(LorId), new[] { typeof(string), typeof(int) })),
-                             new CodeInstruction(OpCodes.Call,
-                                 AccessTools.Method(typeof(LorId), "op_Inequality",
-                                     new[] { typeof(LorId), typeof(LorId) })),
-                             codes[i + 5]
-                         }))
-                    addedCodes.AddRange(codeToAdd);
-                codes.InsertRange(i + 6, addedCodes);
-                Debug.Log("Patched");
-                break;
-            }
-
-            if (!patchSuccess)
-                HarmonyLib.Harmony.CreateAndPatchAll(typeof(FailSafePatch_Se21341), "LOR.SephirahBundleSe21341_MOD");
-            return codes.AsEnumerable();
+            if (__instance.CurrentHandState != BattleUnitCardsInHandUI.HandState.EgoCard) return;
+            var unit = __instance.SelectedModel ?? __instance.HOveredModel;
+            if (unit.UnitData.unitData.bookItem.BookId.packageId != ModParameters.PackageId ||
+                !ModParameters.NoEgoFloorUnit.Contains(unit.UnitData.unitData.bookItem.BookId.id)) return;
+            var list = SephiraUtil.ReloadEgoHandUI(__instance, __instance.GetCardUIList(), unit, ____activatedCardList,
+                ref ____xInterval).ToList();
+            __instance.SetSelectedCardUI(null);
+            for (var i = list.Count; i < __instance.GetCardUIList().Count; i++)
+                __instance.GetCardUIList()[i].gameObject.SetActive(false);
         }
     }
 }

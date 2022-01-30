@@ -12,7 +12,7 @@ namespace SephiraBundle_Se21341.Harmony
         {
             ModParameters.Path = Path.GetDirectoryName(
                 Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path));
-            HarmonyLib.Harmony.CreateAndPatchAll(typeof(HarmonyPatch_Se21341), "LOR.SephirahBundleSe21341_MOD");
+            new HarmonyLib.Harmony("LOR.SephirahBundleSe21341_MOD").PatchAll();
             ModParameters.Language = GlobalGameManager.Instance.CurrentOption.language;
             SephiraUtil.GetArtWorks(new DirectoryInfo(ModParameters.Path + "/ArtWork"));
             SephiraUtil.ChangeCardItem(ItemXmlDataList.instance);
