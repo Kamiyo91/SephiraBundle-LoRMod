@@ -130,6 +130,8 @@ namespace Roland_Se21341.DiceEffects
         private static void SetLongSword(ICollection<RencounterManager.MovingAction> self,
             ICollection<RencounterManager.MovingAction> oppo)
         {
+            var movingAction = new RencounterManager.MovingAction(ActionDetail.S12, CharMoveState.Stop, 0f, true, 0.2f);
+            movingAction.SetEffectTiming(EffectTiming.NOT_PRINT, EffectTiming.NOT_PRINT, EffectTiming.NOT_PRINT);
             var movingAction2 = new RencounterManager.MovingAction(ActionDetail.S2, CharMoveState.Stop, 0f, true, 0.3f)
             {
                 customEffectRes = "BlackSilence_4th_LongSword_S2"
@@ -281,9 +283,9 @@ namespace Roland_Se21341.DiceEffects
             var movingAction4 =
                 new RencounterManager.MovingAction(ActionDetail.S12, CharMoveState.Stop, 0f, false, 0.5f);
             movingAction4.SetEffectTiming(EffectTiming.NOT_PRINT, EffectTiming.NOT_PRINT, EffectTiming.NOT_PRINT);
-            var movingAction5 = new RencounterManager.MovingAction(ActionDetail.Hit, CharMoveState.Stop, 0f, true, 1f)
+            var movingAction5 = new RencounterManager.MovingAction(ActionDetail.S7, CharMoveState.Stop, 0f, true, 1f)
             {
-                customEffectRes = "BS4DurandalHit_H"
+                customEffectRes = "BlackSilence_4th_GreatSword_S7"
             };
             movingAction5.SetEffectTiming(EffectTiming.PRE, EffectTiming.PRE, EffectTiming.PRE);
             self.Add(movingAction);

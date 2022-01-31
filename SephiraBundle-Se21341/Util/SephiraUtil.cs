@@ -567,12 +567,12 @@ namespace SephiraBundle_Se21341.Util
                             switch (num)
                             {
                                 case 0:
-                                    dice.MotionDetail = MotionDetail.J;
-                                    dice.EffectRes = "BS4DurandalUp_J";
-                                    break;
-                                case 1:
                                     dice.MotionDetail = MotionDetail.J2;
                                     dice.EffectRes = "BS4DurandalDown_J2";
+                                    break;
+                                case 1:
+                                    dice.MotionDetail = MotionDetail.J;
+                                    dice.EffectRes = "BS4DurandalUp_J";
                                     break;
                             }
 
