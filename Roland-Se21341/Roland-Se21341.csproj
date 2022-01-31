@@ -59,6 +59,7 @@
     <Compile Include="DiceEffects\BehaviourAction_BlackSilenceCustomEgoGauntlet1_Se21341.cs" />
     <Compile Include="DiceEffects\BehaviourAction_BlackSilenceCustomEgoGauntlet2_Se21341.cs" />
     <Compile Include="DiceEffects\BehaviourAction_BlackSilenceCustomEgoShortSword_Se21341.cs" />
+    <Compile Include="DiceEffects\BehaviourAction_BlackSilence_SpecialDurandal_Ego_Se21341.cs" />
     <Compile Include="DiceEffects\FarAreaEffect_BlackSilenceCustomEgoAreaStrongFinal_Se21341.cs" />
     <Compile Include="DiceEffects\FarAreaEffect_BlackSilenceCustomEgoAreaStrong_Se21341.cs" />
     <Compile Include="MechUtil_Roland.cs" />

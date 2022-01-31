@@ -294,6 +294,7 @@ namespace SephiraBundle_Se21341.Util
                 txt_equipButton.text = TextDataModel.GetText("ui_equippage_notequip", Array.Empty<object>());
                 return;
             }
+
             if (!IsLockedCharacter(currentUnit)) return;
             button_Equip.interactable = true;
             txt_equipButton.text = TextDataModel.GetText("ui_bookinventory_equipbook", Array.Empty<object>());
@@ -387,6 +388,20 @@ namespace SephiraBundle_Se21341.Util
 
         public static void PrepareBlackSilenceDeck(BattleUnitModel owner)
         {
+            var furiosoCard = owner.personalEgoDetail.GetCardAll()
+                .FirstOrDefault(x => x.GetID().IsBasic() && x.GetID().id == 702010);
+            if (furiosoCard != null)
+            {
+                furiosoCard.CopySelf();
+                var furiosoDice = furiosoCard.GetBehaviourList().FirstOrDefault();
+                if (furiosoDice != null)
+                {
+                    furiosoDice.MotionDetail = MotionDetail.J2;
+                    furiosoDice.EffectRes = "BS4DurandalDown_J2";
+                    furiosoDice.ActionScript = "BlackSilence_SpecialDurandal_Ego_Se21341";
+                }
+            }
+
             foreach (var card in owner.allyCardDetail.GetAllDeck())
             {
                 card.CopySelf();
