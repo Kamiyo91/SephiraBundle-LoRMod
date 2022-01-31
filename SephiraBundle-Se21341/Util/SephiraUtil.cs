@@ -305,7 +305,7 @@ namespace SephiraBundle_Se21341.Util
             var textMeshProUGUI = (TextMeshProUGUI)instance.GetType().GetField("txt_StoryName", AccessTools.all)
                 .GetValue(instance);
             if (books.Count < 0) return;
-            textMeshProUGUI.text = ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals("ModName_Re21341")).Value
+            textMeshProUGUI.text = ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals("ModName_Se21341")).Value
                 .Name;
         }
 
