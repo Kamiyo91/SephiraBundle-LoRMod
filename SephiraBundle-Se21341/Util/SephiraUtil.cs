@@ -286,8 +286,15 @@ namespace SephiraBundle_Se21341.Util
                 instance.BookDataModel.owner != null) return;
             var currentUnit = UI.UIController.Instance.CurrentUnit;
             if (currentUnit == null) return;
-            if (!IsLockedCharacter(currentUnit) ||
-                !ModParameters.DynamicNames.ContainsKey(bookDataModel.ClassInfo.id.id)) return;
+            if (!ModParameters.DynamicNames.ContainsKey(bookDataModel.ClassInfo.id.id)) return;
+            var mainItem = ModParameters.DynamicNames.FirstOrDefault(x => x.Key == bookDataModel.ClassInfo.id.id);
+            if (mainItem.Value.Item2 == currentUnit.OwnerSephirah && !currentUnit.isSephirah)
+            {
+                button_Equip.interactable = false;
+                txt_equipButton.text = TextDataModel.GetText("ui_equippage_notequip", Array.Empty<object>());
+                return;
+            }
+            if (!IsLockedCharacter(currentUnit)) return;
             button_Equip.interactable = true;
             txt_equipButton.text = TextDataModel.GetText("ui_bookinventory_equipbook", Array.Empty<object>());
         }
