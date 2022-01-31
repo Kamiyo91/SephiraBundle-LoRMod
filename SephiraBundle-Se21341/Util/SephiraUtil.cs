@@ -377,5 +377,189 @@ namespace SephiraBundle_Se21341.Util
 
             return list;
         }
+
+        public static void PrepareBlackSilenceDeck(BattleUnitModel owner)
+        {
+            foreach (var card in owner.allyCardDetail.GetAllDeck())
+            {
+                card.CopySelf();
+                int num;
+                switch (card.GetID().id)
+                {
+                    case 702001:
+                        num = 0;
+                        foreach (var dice in card.GetBehaviourList())
+                        {
+                            switch (num)
+                            {
+                                case 0:
+                                    dice.MotionDetail = MotionDetail.S11;
+                                    dice.EffectRes = "BlackSilence_4th_Lance_S11";
+                                    break;
+                                case 1:
+                                    dice.MotionDetail = MotionDetail.S11;
+                                    dice.EffectRes = "BlackSilence_4th_Lance_S11";
+                                    break;
+                            }
+
+                            num++;
+                        }
+
+                        break;
+                    case 702002:
+                        num = 0;
+                        foreach (var dice in card.GetBehaviourList())
+                        {
+                            switch (num)
+                            {
+                                case 0:
+                                    dice.MotionDetail = MotionDetail.S7;
+                                    dice.EffectRes = "BlackSilence_4th_GreatSword_S7";
+                                    break;
+                            }
+
+                            num++;
+                        }
+
+                        break;
+                    case 702003:
+                        num = 0;
+                        foreach (var dice in card.GetBehaviourList())
+                        {
+                            switch (num)
+                            {
+                                case 0:
+                                    dice.MotionDetail = MotionDetail.S5;
+                                    dice.EffectRes = "BlackSilence_4th_MaceAxe_S5";
+                                    break;
+                                case 1:
+                                    dice.MotionDetail = MotionDetail.S5;
+                                    dice.EffectRes = "BlackSilence_4th_MaceAxe_S5";
+                                    break;
+                            }
+
+                            num++;
+                        }
+
+                        break;
+                    case 702004:
+                        num = 0;
+                        foreach (var dice in card.GetBehaviourList())
+                        {
+                            switch (num)
+                            {
+                                case 0:
+                                    dice.MotionDetail = MotionDetail.S6;
+                                    dice.EffectRes = "BlackSilence_4th_Hammer_S6";
+                                    break;
+                            }
+
+                            num++;
+                        }
+
+                        break;
+                    case 702005:
+                        num = 0;
+                        foreach (var dice in card.GetBehaviourList())
+                        {
+                            switch (num)
+                            {
+                                case 0:
+                                    dice.MotionDetail = MotionDetail.S2;
+                                    dice.ActionScript = "";
+                                    dice.EffectRes = "BlackSilence_4th_LongSword_S2";
+                                    break;
+                            }
+
+                            num++;
+                        }
+
+                        break;
+                    case 702006:
+                        num = 0;
+                        foreach (var dice in card.GetBehaviourList())
+                        {
+                            switch (num)
+                            {
+                                case 0:
+                                    dice.MotionDetail = MotionDetail.S2;
+                                    dice.EffectRes = "BlackSilence_4th_Gauntlet_S3";
+                                    break;
+                                case 1:
+                                    dice.MotionDetail = MotionDetail.S2;
+                                    dice.EffectRes = "BlackSilence_4th_Gauntlet_S3";
+                                    break;
+                                case 2:
+                                    dice.MotionDetail = MotionDetail.S2;
+                                    dice.EffectRes = "BlackSilence_4th_LongSword_S2";
+                                    break;
+                            }
+
+                            num++;
+                        }
+
+                        break;
+                    case 702007:
+                        num = 0;
+                        foreach (var dice in card.GetBehaviourList())
+                        {
+                            switch (num)
+                            {
+                                case 1:
+                                    dice.MotionDetail = MotionDetail.S9;
+                                    dice.EffectRes = "BlackSilence_4th_DualWield1_S9";
+                                    break;
+                                case 2:
+                                    dice.MotionDetail = MotionDetail.S10;
+                                    dice.EffectRes = "BlackSilence_4th_DualWield2_S10";
+                                    break;
+                            }
+
+                            num++;
+                        }
+
+                        break;
+                    case 702008:
+                        num = 0;
+                        foreach (var dice in card.GetBehaviourList())
+                        {
+                            switch (num)
+                            {
+                                case 1:
+                                    dice.MotionDetail = MotionDetail.S1;
+                                    break;
+                                case 2:
+                                    dice.MotionDetail = MotionDetail.S8;
+                                    dice.EffectRes = "BlackSilence_4th_Shotgun_S8";
+                                    break;
+                            }
+
+                            num++;
+                        }
+
+                        break;
+                    case 702009:
+                        num = 0;
+                        foreach (var dice in card.GetBehaviourList())
+                        {
+                            switch (num)
+                            {
+                                case 0:
+                                    dice.MotionDetail = MotionDetail.J;
+                                    dice.EffectRes = "BS4DurandalUp_J";
+                                    break;
+                                case 1:
+                                    dice.MotionDetail = MotionDetail.J2;
+                                    dice.EffectRes = "BS4DurandalDown_J2";
+                                    break;
+                            }
+
+                            num++;
+                        }
+
+                        break;
+                }
+            }
+        }
     }
 }

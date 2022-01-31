@@ -8,15 +8,5 @@ namespace Roland_Se21341.Cards
         {
             return owner.bufListDetail.HasBuf<BattleUnitBuf_BlackSilenceEgoMask_Se21341>();
         }
-
-        public override void OnUseCard()
-        {
-            owner.view.SetAltSkin("BlackSilence4");
-        }
-
-        public override void OnEndBattle()
-        {
-            owner.view.SetAltSkin("BlackSilence3");
-        }
     }
 }

@@ -9,7 +9,7 @@ namespace Roland_Se21341.Buffs
             stack = 0;
         }
 
-        protected override string keywordId => "BlackSilenceEgo_Re21341";
+        protected override string keywordId => "BlackSilenceEgo_Se21341";
         public override int paramInBufDesc => 0;
         protected override string keywordIconId => "BlackFrantic";
         public override bool isAssimilation => true;
