@@ -168,5 +168,18 @@ namespace SephiraBundle_Se21341.Harmony
             for (var i = list.Count; i < __instance.GetCardUIList().Count; i++)
                 __instance.GetCardUIList()[i].gameObject.SetActive(false);
         }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(BookModel), "CanSuccessionPassive")]
+        public static void BookModel_CanSuccessionPassive(BookModel __instance, PassiveModel targetpassive,
+            ref GivePassiveState haspassiveState, ref bool __result)
+        {
+            var passiveItem =
+                ModParameters.UniquePassives.FirstOrDefault(x => x.Item1 == targetpassive.originData.currentpassive.id);
+            if (passiveItem == null || __instance.GetPassiveModelList()
+                    .Exists(x => passiveItem.Item2.Contains(x.reservedData.currentpassive.id))) return;
+            haspassiveState = GivePassiveState.Lock;
+            __result = false;
+        }
     }
 }

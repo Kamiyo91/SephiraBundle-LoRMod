@@ -403,7 +403,10 @@ namespace SephiraBundle_Se21341.Util
                         furiosoDice.ActionScript = "BlackSilence_SpecialDurandal_Ego_Se21341";
                     }
                     else
+                    {
                         ChangeCardDiceEffect(furiosoDice);
+                    }
+
                     num++;
                 }
             }

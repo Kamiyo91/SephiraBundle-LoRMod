@@ -58,6 +58,12 @@ namespace SephiraBundle_Se21341.Models
                 { "Sprites/Books/Thumb/8", new List<int> { 10000003 } }
             };
 
+        public static readonly List<Tuple<LorId, List<LorId>>> UniquePassives = new List<Tuple<LorId, List<LorId>>>
+        {
+            new Tuple<LorId, List<LorId>>(new LorId(PackageId, 27), new List<LorId> { new LorId(10012) }),
+            new Tuple<LorId, List<LorId>>(new LorId(PackageId, 35), new List<LorId> { new LorId(10010) })
+        };
+
         public static string Path { get; set; }
         public static string Language { get; set; }
     }
