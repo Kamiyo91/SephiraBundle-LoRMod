@@ -60,8 +60,8 @@ namespace SephiraBundle_Se21341.Models
 
         public static readonly List<Tuple<LorId, List<LorId>>> UniquePassives = new List<Tuple<LorId, List<LorId>>>
         {
-            new Tuple<LorId, List<LorId>>(new LorId(PackageId, 27), new List<LorId> { new LorId(10012) }),
-            new Tuple<LorId, List<LorId>>(new LorId(PackageId, 35), new List<LorId> { new LorId(10010) })
+            new Tuple<LorId, List<LorId>>(new LorId(PackageId, 26), new List<LorId> { new LorId(10010) }),
+            new Tuple<LorId, List<LorId>>(new LorId(PackageId, 27), new List<LorId> { new LorId(10012) })
         };
 
         public static string Path { get; set; }
