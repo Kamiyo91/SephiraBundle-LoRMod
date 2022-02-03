@@ -31,7 +31,7 @@ namespace SephiraBundle_Se21341.Models
 
         public static readonly List<int> EgoPersonalCardList = new List<int> { 30 };
 
-        public static readonly List<int> UntransferablePassives = new List<int> { 1, 2, 3, 4 };
+        public static readonly List<int> UntransferablePassives = new List<int> { 1, 2, 3, 4, 35 };
 
         public static readonly Dictionary<int, Tuple<string, SephirahType>> DynamicNames =
             new Dictionary<int, Tuple<string, SephirahType>>
