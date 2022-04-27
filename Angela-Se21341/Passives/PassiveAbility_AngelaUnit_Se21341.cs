@@ -9,7 +9,7 @@ namespace Angela_Se21341.Passives
         public override void OnWaveStart()
         {
             _dlg = owner.UnitData.unitData.battleDialogModel;
-            owner.UnitData.unitData.InitBattleDialogByDefaultBook(new LorId(ModParameters.PackageId, 10000006));
+            owner.UnitData.unitData.InitBattleDialogByDefaultBook(new LorId(SephiraModParameters.PackageId, 10000006));
             AddCardsWaveStart();
         }
 

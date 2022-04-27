@@ -1,4 +1,5 @@
-﻿using Roland_Se21341.Buffs;
+﻿using KamiyoStaticBLL.MechUtilBaseModels;
+using Roland_Se21341.Buffs;
 using SephiraBundle_Se21341.Models;
 
 namespace Roland_Se21341.Passives
@@ -24,9 +25,9 @@ namespace Roland_Se21341.Passives
                 EgoMapType = typeof(BlackSilence_Se21341MapManager),
                 FlY = 0.285f,
                 EgoType = typeof(BattleUnitBuf_BlackSilenceEgoMask_Se21341),
-                EgoCardId = new LorId(ModParameters.PackageId, 31),
+                EgoCardId = new LorId(SephiraModParameters.PackageId, 31),
                 HasEgoAttack = true,
-                EgoAttackCardId = new LorId(ModParameters.PackageId, 30)
+                EgoAttackCardId = new LorId(SephiraModParameters.PackageId, 30)
             });
         }
 

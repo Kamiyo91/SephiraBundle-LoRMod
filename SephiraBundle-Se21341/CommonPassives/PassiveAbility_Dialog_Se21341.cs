@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using KamiyoStaticBLL.Models;
 using SephiraBundle_Se21341.Models;
 
 namespace SephiraBundle_Se21341.CommonPassives
@@ -8,10 +9,10 @@ namespace SephiraBundle_Se21341.CommonPassives
         public override void OnWaveStart()
         {
             Hide();
-            if (owner.UnitData.unitData.bookItem.ClassInfo.id.packageId != ModParameters.PackageId) return;
-            if (ModParameters.DialogList.Keys.Contains(owner.UnitData.unitData.bookItem.ClassInfo.id.id))
+            if (owner.UnitData.unitData.bookItem.ClassInfo.id.packageId != SephiraModParameters.PackageId) return;
+            if (ModParameters.DialogList.Keys.Contains(owner.UnitData.unitData.bookItem.ClassInfo.id))
                 owner.UnitData.unitData.InitBattleDialogByDefaultBook(ModParameters.DialogList
-                    .FirstOrDefault(x => x.Key == owner.UnitData.unitData.bookItem.ClassInfo.id.id).Value);
+                    .FirstOrDefault(x => x.Key == owner.UnitData.unitData.bookItem.ClassInfo.id).Value);
         }
     }
 }

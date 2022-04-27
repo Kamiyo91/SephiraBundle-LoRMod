@@ -37,6 +37,21 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="KamiyoStaticBLL">
+      <HintPath>..\..\KamiyoStaticDll\KamiyoStaticBLL\bin\Debug\KamiyoStaticBLL.dll</HintPath>
+    </Reference>
+    <Reference Include="KamiyoStaticHarmony">
+      <HintPath>..\..\KamiyoStaticDll\KamiyoStaticHarmony\bin\Debug\KamiyoStaticHarmony.dll</HintPath>
+    </Reference>
+    <Reference Include="KamiyoStaticUtil">
+      <HintPath>..\..\KamiyoStaticDll\KamiyoStaticUtil\bin\Debug\KamiyoStaticUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\..\Omori-Om21341\OmoriHarmony-Om21341\bin\Debug\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.Utils">
+      <HintPath>..\..\Omori-Om21341\OmoriHarmony-Om21341\bin\Debug\MonoMod.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -72,19 +87,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonPassives\PassiveAbility_NotEquip_Se21341.cs" />
-    <Compile Include="Harmony\HarmonyPatch-Se21341.cs" />
     <Compile Include="Harmony\ModInit-Se21341.cs" />
-    <Compile Include="Models\EffectTextModel.cs" />
-    <Compile Include="Models\MapModel.cs" />
-    <Compile Include="Models\MechUtilBaseModel.cs" />
     <Compile Include="Util\CustomMapUtility\Assemblies\CustomMapUtility.cs" />
     <Compile Include="Util\CustomMapUtility\Assemblies\Wav.cs" />
     <Compile Include="Util\MapUtil.cs" />
-    <Compile Include="Util\MechUtilBase.cs" />
-    <Compile Include="Models\ModParameters.cs" />
+    <Compile Include="Models\SephiraModParameters.cs" />
     <Compile Include="CommonPassives\PassiveAbility_Dialog_Se21341.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\SephiraUtil.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
