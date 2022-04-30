@@ -24,6 +24,7 @@ namespace SephiraBundle_Se21341.Harmony
         private static void InitParameters()
         {
             ModParameters.PackageIds.Add(SephiraModParameters.PackageId);
+            ModParameters.NoCredenza.Add(SephiraModParameters.PackageId);
             SephiraModParameters.Path = Path.GetDirectoryName(
                 Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path));
             ModParameters.Language = GlobalGameManager.Instance.CurrentOption.language;
