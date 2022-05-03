@@ -1,4 +1,5 @@
 ﻿using KamiyoStaticBLL.MechUtilBaseModels;
+using KamiyoStaticUtil.Utils;
 using Roland_Se21341.Buffs;
 using SephiraBundle_Se21341.Models;
 
@@ -29,6 +30,9 @@ namespace Roland_Se21341.Passives
                 HasEgoAttack = true,
                 EgoAttackCardId = new LorId(SephiraModParameters.PackageId, 30)
             });
+            if (owner.faction != Faction.Enemy) return;
+            if (UnitUtil.SpecialCaseEgo(owner.faction, new LorId(SephiraModParameters.PackageId, 27),
+                    typeof(BattleUnitBuf_BlackSilenceEgoMask_Se21341))) _util.ForcedEgo();
         }
 
         public override void OnUseCard(BattlePlayingCardDataInUnitModel curCard)
@@ -45,6 +49,13 @@ namespace Roland_Se21341.Passives
         public override void OnRoundEndTheLast()
         {
             if (_util.EgoCheck()) _util.EgoActive();
+        }
+
+        public override void OnRoundEnd()
+        {
+            if (owner.faction != Faction.Enemy) return;
+            if (UnitUtil.SpecialCaseEgo(owner.faction, new LorId(SephiraModParameters.PackageId, 27),
+                    typeof(BattleUnitBuf_BlackSilenceEgoMask_Se21341))) _util.ForcedEgo();
         }
     }
 }

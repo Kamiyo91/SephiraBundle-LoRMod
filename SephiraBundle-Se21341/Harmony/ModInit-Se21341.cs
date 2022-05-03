@@ -27,7 +27,6 @@ namespace SephiraBundle_Se21341.Harmony
             ModParameters.NoCredenza.Add(SephiraModParameters.PackageId);
             SephiraModParameters.Path = Path.GetDirectoryName(
                 Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path));
-            ModParameters.Language = GlobalGameManager.Instance.CurrentOption.language;
             ModParameters.CustomSkinTrue.AddRange(new List<LorId>
             {
                 new LorId(SephiraModParameters.PackageId, 10000001), new LorId(SephiraModParameters.PackageId, 10000003)
