@@ -17,6 +17,7 @@ namespace SephiraBundle_Se21341.Harmony
             MapStaticUtil.GetArtWorks(new DirectoryInfo(SephiraModParameters.Path + "/ArtWork"));
             UnitUtil.ChangeCardItem(ItemXmlDataList.instance, SephiraModParameters.PackageId);
             UnitUtil.ChangePassiveItem(SephiraModParameters.PackageId);
+            UnitUtil.ChangeBaseCardItem(ItemXmlDataList.instance);
             LocalizeUtil.AddLocalLocalize(SephiraModParameters.Path, SephiraModParameters.PackageId);
             LocalizeUtil.RemoveError();
         }
