@@ -1,4 +1,4 @@
-﻿using SephiraBundle_Se21341.Util.CustomMapUtility.Assemblies;
+﻿using CustomMapUtility;
 using UnityEngine;
 
 namespace Roland_Se21341
