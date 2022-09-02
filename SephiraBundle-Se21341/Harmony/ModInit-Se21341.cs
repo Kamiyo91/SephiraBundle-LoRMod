@@ -48,6 +48,14 @@ namespace SephiraBundle_Se21341.Harmony
                 new LorId(SephiraModParameters.PackageId, 10000005),
                 new LorId(SephiraModParameters.PackageId, 10000006)
             });
+            ModParameters.CardsList.AddRange(new Dictionary<LorId, int>
+            {
+                {new LorId(607003),3},
+                {new LorId(607004),3},
+                {new LorId(607005),3},
+                {new LorId(607006),3},
+                {new LorId(607007),3}
+            });
             ModParameters.OriginalNoInventoryCardList.AddRange(new List<LorId>
             {
                 new LorId(9910001), new LorId(9910002), new LorId(9910003), new LorId(9910004), new LorId(9910005)
