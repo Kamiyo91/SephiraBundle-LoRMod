@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using CustomMapUtility;
 using KamiyoStaticBLL.Models;
 using KamiyoStaticUtil.Utils;
-using SephiraBundle_Se21341.Util.CustomMapUtility.Assemblies;
 
 namespace SephiraBundle_Se21341.Util
 {
@@ -31,6 +31,7 @@ namespace SephiraBundle_Se21341.Util
                 StageType.Creature) return;
             CustomMapHandler.RemoveCustomEgoMapByAssimilation(mapName);
             MapStaticUtil.RemoveValueInAddedMap(mapName);
+            Singleton<StageController>.Instance.CheckMapChange();
         }
     }
 }

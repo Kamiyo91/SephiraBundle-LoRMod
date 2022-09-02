@@ -32,25 +32,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\0Harmony.dll</HintPath>
+      <HintPath>..\..\CommonDLL\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="KamiyoStaticBLL">
-      <HintPath>..\..\KamiyoStaticDll\KamiyoStaticBLL\bin\Debug\KamiyoStaticBLL.dll</HintPath>
-    </Reference>
-    <Reference Include="KamiyoStaticHarmony">
-      <HintPath>..\..\KamiyoStaticDll\KamiyoStaticHarmony\bin\Debug\KamiyoStaticHarmony.dll</HintPath>
+      <HintPath>..\..\CommonDLL\KamiyoStaticBLL.dll</HintPath>
     </Reference>
     <Reference Include="KamiyoStaticUtil">
-      <HintPath>..\..\KamiyoStaticDll\KamiyoStaticUtil\bin\Debug\KamiyoStaticUtil.dll</HintPath>
+      <HintPath>..\..\CommonDLL\KamiyoStaticUtil.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
-      <HintPath>..\..\Omori-Om21341\OmoriHarmony-Om21341\bin\Debug\Mono.Cecil.dll</HintPath>
+      <HintPath>..\..\CommonDLL\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.Utils">
-      <HintPath>..\..\Omori-Om21341\OmoriHarmony-Om21341\bin\Debug\MonoMod.Utils.dll</HintPath>
+      <HintPath>..\..\CommonDLL\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

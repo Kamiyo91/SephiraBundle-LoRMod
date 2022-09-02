@@ -50,7 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SephiraBundle-Se21341\SephiraBundle-Se21341\SephiraBundle-Se21341.csproj">
+    <ProjectReference Include="..\SephiraBundle-Se21341\SephiraBundle-Se21341.csproj">
       <Project>{4a829886-0565-4c09-bb06-1812dc68e1fc}</Project>
       <Name>SephiraBundle-Se21341</Name>
     </ProjectReference>
