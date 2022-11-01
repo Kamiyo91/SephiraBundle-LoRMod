@@ -1,15 +1,13 @@
-﻿using SephiraModInit.Models;
-
-namespace SephiraModInit.Angela_Se21341.Passives
+﻿namespace SephiraModInit.Angela_Se21341.Passives
 {
     public class PassiveAbility_AngelaUnit_Se21341 : PassiveAbilityBase
     {
-        private BattleDialogueModel _dlg;
+        //private BattleDialogueModel _dlg;
 
         public override void OnWaveStart()
         {
-            _dlg = owner.UnitData.unitData.battleDialogModel;
-            owner.UnitData.unitData.InitBattleDialogByDefaultBook(new LorId(SephiraModParameters.PackageId, 10000006));
+            //_dlg = owner.UnitData.unitData.battleDialogModel;
+            //owner.UnitData.unitData.InitBattleDialogByDefaultBook(new LorId(SephiraModParameters.PackageId, 10000006));
             AddCardsWaveStart();
         }
 
@@ -71,9 +69,9 @@ namespace SephiraModInit.Angela_Se21341.Passives
             AddCardOnLvUpEmotion();
         }
 
-        public override void OnBattleEnd()
-        {
-            owner.UnitData.unitData.battleDialogModel = _dlg;
-        }
+        //public override void OnBattleEnd()
+        //{
+        //    owner.UnitData.unitData.battleDialogModel = _dlg;
+        //}
     }
 }

@@ -65,7 +65,6 @@
     <Compile Include="Angela-Se21341\Passives\PassiveAbility_AngelaUnit_Se21341.cs" />
     <Compile Include="Angela-Se21341\Passives\PassiveAbility_DoubleEmotion_Se21341.cs" />
     <Compile Include="Binah-Se21341\Passives\PassiveAbility_FragmentOfAnArbiterBinah_Se21341.cs" />
-    <Compile Include="CommonPassives\PassiveAbility_DialogNoEgo_Se21341.cs" />
     <Compile Include="CommonPassives\PassiveAbility_Dialog_Se21341.cs" />
     <Compile Include="CommonPassives\PassiveAbility_NotEquip_Se21341.cs" />
     <Compile Include="Harmony\ModInit-Se21341.cs" />

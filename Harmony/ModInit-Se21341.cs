@@ -94,8 +94,7 @@ namespace SephiraModInit.Harmony
                 new PassiveOptions(1, false),
                 new PassiveOptions(2, false, bannedEgoFloorCards: true),
                 new PassiveOptions(3, false),
-                new PassiveOptions(4, false),
-                new PassiveOptions(5, false, bannedEgoFloorCards: true),
+                new PassiveOptions(10008, isBaseGamePassive: true, passiveScriptId: "Dialog_Se21341"),
                 new PassiveOptions(35, false),
                 new PassiveOptions(26, hasAdditionalParameter: true, canBeUsedWithPassivesOne: new List<LorId>
                 {
@@ -116,6 +115,7 @@ namespace SephiraModInit.Harmony
                     bookCustomOptions: new BookCustomOptions(nameTextId: 1, customFaceData: false,
                         customDialogId: new LorId(10))),
                 new KeypageOptions(10000002, false, everyoneCanEquip: true, editErrorMessageId: "EditError_Se21341",
+                    bannedEgoFloorCards: true,
                     bookCustomOptions: new BookCustomOptions(nameTextId: 2, customFaceData: false,
                         customDialogId: new LorId(6))),
                 new KeypageOptions(10000003, false, everyoneCanEquip: true, editErrorMessageId: "EditError_Se21341",
