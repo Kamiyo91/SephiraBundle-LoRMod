@@ -1,7 +1,7 @@
-﻿using CustomMapUtility;
+﻿using BigDLL4221.Utils;
 using UnityEngine;
 
-namespace Roland_Se21341
+namespace SephiraModInit.Roland_Se21341
 {
     public class BlackSilence_Se21341MapManager : CustomMapManager
     {

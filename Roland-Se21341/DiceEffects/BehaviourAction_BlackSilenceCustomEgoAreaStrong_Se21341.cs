@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Roland_Se21341.DiceEffects
+namespace SephiraModInit.Roland_Se21341.DiceEffects
 {
     public class BehaviourAction_BlackSilenceCustomEgoAreaStrong_Se21341 : BehaviourActionBase
     {

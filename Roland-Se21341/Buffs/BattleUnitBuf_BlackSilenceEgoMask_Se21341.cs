@@ -1,6 +1,6 @@
 ﻿using Sound;
 
-namespace Roland_Se21341.Buffs
+namespace SephiraModInit.Roland_Se21341.Buffs
 {
     public class BattleUnitBuf_BlackSilenceEgoMask_Se21341 : BattleUnitBuf
     {

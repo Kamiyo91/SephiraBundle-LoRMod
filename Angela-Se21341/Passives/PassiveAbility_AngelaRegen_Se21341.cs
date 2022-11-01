@@ -1,4 +1,4 @@
-﻿namespace Angela_Se21341.Passives
+﻿namespace SephiraModInit.Angela_Se21341.Passives
 {
     public class PassiveAbility_AngelaRegen_Se21341 : PassiveAbilityBase
     {

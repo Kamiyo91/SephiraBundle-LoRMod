@@ -1,6 +1,6 @@
-﻿using SephiraBundle_Se21341.Models;
+﻿using SephiraModInit.Models;
 
-namespace Angela_Se21341.Passives
+namespace SephiraModInit.Angela_Se21341.Passives
 {
     public class PassiveAbility_AngelaUnit_Se21341 : PassiveAbilityBase
     {

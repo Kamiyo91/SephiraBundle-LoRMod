@@ -1,4 +1,4 @@
-﻿namespace Roland_Se21341.Cards
+﻿namespace SephiraModInit.Roland_Se21341.Cards
 {
     public class DiceCardSelfAbility_BlackSilenceEgoMask_Se21341 : DiceCardSelfAbilityBase
     {

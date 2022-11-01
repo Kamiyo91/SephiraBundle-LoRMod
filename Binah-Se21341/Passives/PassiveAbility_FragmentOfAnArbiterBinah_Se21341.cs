@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Binah_Se21341.Passives
+namespace SephiraModInit.Binah_Se21341.Passives
 {
     public class PassiveAbility_FragmentOfAnArbiterBinah_Se21341 : PassiveAbilityBase
     {

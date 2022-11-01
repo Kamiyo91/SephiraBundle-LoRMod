@@ -1,6 +1,6 @@
-﻿using Roland_Se21341.Buffs;
+﻿using SephiraModInit.Roland_Se21341.Buffs;
 
-namespace Roland_Se21341.Cards
+namespace SephiraModInit.Roland_Se21341.Cards
 {
     public class DiceCardSelfAbility_BlackSilenceEgoMaskScream_Se21341 : DiceCardSelfAbilityBase
     {

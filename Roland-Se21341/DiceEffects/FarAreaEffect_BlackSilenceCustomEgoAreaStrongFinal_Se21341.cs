@@ -1,7 +1,7 @@
 ﻿using Sound;
 using UnityEngine;
 
-namespace Roland_Se21341.DiceEffects
+namespace SephiraModInit.Roland_Se21341.DiceEffects
 {
     public class FarAreaEffect_BlackSilenceCustomEgoAreaStrongFinal_Se21341 : FarAreaEffect
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Roland_Se21341.DiceEffects
+namespace SephiraModInit.Roland_Se21341.DiceEffects
 {
     public class BehaviourAction_BlackSilenceCustomEgoGauntlet2_Se21341 : BehaviourActionBase
     {
