@@ -96,11 +96,11 @@ namespace SephiraModInit.Harmony
                 new PassiveOptions(3, false),
                 new PassiveOptions(10008, isBaseGamePassive: true, passiveScriptId: "Dialog_Se21341"),
                 new PassiveOptions(35, false),
-                new PassiveOptions(26, hasAdditionalParameter: true, canBeUsedWithPassivesOne: new List<LorId>
+                new PassiveOptions(26, canBeUsedWithPassivesOne: new List<LorId>
                 {
                     new LorId(10010)
                 }),
-                new PassiveOptions(27, hasAdditionalParameter: true, canBeUsedWithPassivesOne: new List<LorId>
+                new PassiveOptions(27, canBeUsedWithPassivesOne: new List<LorId>
                 {
                     new LorId(10012)
                 })
