@@ -103,6 +103,9 @@ namespace SephiraModInit.Harmony
                 new PassiveOptions(27, canBeUsedWithPassivesOne: new List<LorId>
                 {
                     new LorId(10012)
+                }, chainReleasePassives: new List<LorId>
+                {
+                    new LorId(SephiraModParameters.KamiyoModPackPackageId, 61)
                 })
             });
         }

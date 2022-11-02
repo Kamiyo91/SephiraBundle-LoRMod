@@ -7,8 +7,13 @@ namespace SephiraModInit.Roland_Se21341.Passives
     {
         public override void OnWaveStart()
         {
-            SetUtil(SephiraModParameters.BlackSilenceUtil);
+            SetUtil(new BlackSilenceUtil().Util);
             base.OnWaveStart();
+        }
+
+        public override void OnEndBattle(BattlePlayingCardDataInUnitModel curCard)
+        {
+            if (curCard != null) Util.ExtraMethodCase();
         }
     }
 }

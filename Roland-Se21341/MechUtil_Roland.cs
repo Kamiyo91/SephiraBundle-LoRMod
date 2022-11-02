@@ -7,18 +7,27 @@ namespace SephiraModInit.Roland_Se21341
 {
     public class MechUtil_Roland : MechUtilBase
     {
+        public bool EgoActivated;
         public new MechUtilBaseModel Model;
 
         public MechUtil_Roland(MechUtilBaseModel model) : base(model)
         {
             Model = model;
+            EgoActivated = false;
+        }
+
+        public override void ExtraMethodCase()
+        {
+            if (!EgoActivated) return;
+            Model.Owner.view.charAppearance.SetAltMotion(ActionDetail.Default, ActionDetail.S13);
+            Model.Owner.view.charAppearance.SetAltMotion(ActionDetail.Standing, ActionDetail.S13);
         }
 
         public override void EgoActive()
         {
             base.EgoActive();
-            Model.Owner.view.charAppearance.SetAltMotion(ActionDetail.Default, ActionDetail.S13);
-            Model.Owner.view.charAppearance.SetAltMotion(ActionDetail.Standing, ActionDetail.S13);
+            EgoActivated = true;
+            ExtraMethodCase();
             PrepareBlackSilenceDeck(Model.Owner);
         }
 

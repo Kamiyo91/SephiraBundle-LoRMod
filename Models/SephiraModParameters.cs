@@ -8,26 +8,33 @@ namespace SephiraModInit.Models
     public static class SephiraModParameters
     {
         public const string PackageId = "SephirahBundleSe21341.Mod";
+        public const string KamiyoModPackPackageId = "LorModPackRe21341.Mod";
 
         public static MapModel BlackSilenceMap = new MapModel(typeof(BlackSilence_Se21341MapManager),
             "BlackSilenceMassEgo_Se21341", fy: 0.285f);
 
-        public static MechUtil_Roland BlackSilenceUtil = new MechUtil_Roland(new MechUtilBaseModel(
+        public static string Path { get; set; }
+    }
+
+    public class BlackSilenceUtil
+    {
+        public readonly MechUtil_Roland Util = new MechUtil_Roland(new MechUtilBaseModel(
             new Dictionary<int, EgoOptions>
             {
                 {
-                    1, new EgoOptions(new BattleUnitBuf_BlackSilenceEgoMask_Se21341(), "BlackSilence4",
+                    0, new EgoOptions(new BattleUnitBuf_BlackSilenceEgoMask_Se21341(), "BlackSilence4",
                         egoMaps: new Dictionary<LorId, MapModel>
                         {
-                            { new LorId(PackageId, 30), BlackSilenceMap }
+                            { new LorId(SephiraModParameters.PackageId, 30), SephiraModParameters.BlackSilenceMap }
                         })
                 }
             }, personalCards: new Dictionary<LorId, PersonalCardOptions>
             {
-                { new LorId(PackageId, 31), new PersonalCardOptions(activeEgoCard: true) },
-                { new LorId(PackageId, 30), new PersonalCardOptions(true, egoPhase: 1) }
-            }));
-
-        public static string Path { get; set; }
+                {
+                    new LorId(SephiraModParameters.PackageId, 31),
+                    new PersonalCardOptions(activeEgoCard: true, egoPersonalCard: true)
+                },
+                { new LorId(SephiraModParameters.PackageId, 30), new PersonalCardOptions(true) }
+            }, firstEgoFormCard: new LorId(SephiraModParameters.PackageId, 31)));
     }
 }
