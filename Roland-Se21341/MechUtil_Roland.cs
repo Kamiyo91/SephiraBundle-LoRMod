@@ -23,12 +23,14 @@ namespace SephiraModInit.Roland_Se21341
             Model.Owner.view.charAppearance.SetAltMotion(ActionDetail.Standing, ActionDetail.S13);
         }
 
-        public override void EgoActive()
+        public override bool EgoActive()
         {
-            base.EgoActive();
+            var egoActivated = base.EgoActive();
+            if (!egoActivated) return true;
             EgoActivated = true;
             ExtraMethodCase();
             PrepareBlackSilenceDeck(Model.Owner);
+            return true;
         }
 
         public static void PrepareBlackSilenceDeck(BattleUnitModel owner)

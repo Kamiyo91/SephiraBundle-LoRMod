@@ -5,10 +5,10 @@ namespace SephiraModInit.Roland_Se21341.Passives
 {
     public class PassiveAbility_BlackSilenceEgoMask_Se21341 : PassiveAbility_PlayerMechBase_DLL4221
     {
-        public override void OnWaveStart()
+        public override void Init(BattleUnitModel self)
         {
+            base.Init(self);
             SetUtil(new BlackSilenceUtil().Util);
-            base.OnWaveStart();
         }
 
         public override void OnEndBattle(BattlePlayingCardDataInUnitModel curCard)
