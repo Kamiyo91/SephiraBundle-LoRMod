@@ -7,6 +7,7 @@ using BigDLL4221.Models;
 using BigDLL4221.Utils;
 using LOR_DiceSystem;
 using SephiraModInit.Models;
+using UnityEngine;
 
 namespace SephiraModInit.Harmony
 {
@@ -83,7 +84,7 @@ namespace SephiraModInit.Harmony
                 new CardOptions(9910004, CardOption.NoInventory, isBaseGameCard: true),
                 new CardOptions(9910005, CardOption.NoInventory, isBaseGameCard: true),
                 new CardOptions(30, CardOption.EgoPersonal),
-                new CardOptions(31, CardOption.Personal)
+                new CardOptions(31, CardOption.Personal,cardColorOptions:new CardColorOptions(Color.gray,iconColor:new HSVColor(0,0,74)))
             });
         }
 
@@ -106,7 +107,7 @@ namespace SephiraModInit.Harmony
                 }, chainReleasePassives: new List<LorId>
                 {
                     new LorId(SephiraModParameters.KamiyoModPackPackageId, 61)
-                })
+                },passiveColorOptions:new PassiveColorOptions(Color.gray,Color.gray))
             });
         }
 
@@ -126,7 +127,8 @@ namespace SephiraModInit.Harmony
                         customDialogId: new LorId(8))),
                 new KeypageOptions(10000004, false, everyoneCanEquip: true, editErrorMessageId: "EditError_Se21341",
                     bookCustomOptions: new BookCustomOptions(nameTextId: 4, customFaceData: false,
-                        customDialogId: new LorId(SephiraModParameters.PackageId, 10000006)))
+                        customDialogId: new LorId(SephiraModParameters.PackageId, 10000006))),
+                new KeypageOptions(10000006,keypageColorOptions:new KeypageColorOptions(Color.gray,Color.gray))
             });
         }
 
