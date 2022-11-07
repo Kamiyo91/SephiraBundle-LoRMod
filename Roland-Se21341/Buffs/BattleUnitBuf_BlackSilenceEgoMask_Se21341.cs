@@ -13,7 +13,6 @@ namespace SephiraModInit.Roland_Se21341.Buffs
         public override int MinStack => 1;
         public override int MaxStack => 3;
         protected override string keywordId => "BlackSilenceEgo_Se21341";
-        public override int paramInBufDesc => 0;
         protected override string keywordIconId => "BlackFrantic";
         public override bool isAssimilation => true;
 
