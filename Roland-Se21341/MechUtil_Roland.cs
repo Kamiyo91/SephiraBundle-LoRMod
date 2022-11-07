@@ -27,6 +27,7 @@ namespace SephiraModInit.Roland_Se21341
         {
             var egoActivated = base.EgoActive();
             if (!egoActivated) return true;
+            if (Model.EgoPhase != 1) return true;
             EgoActivated = true;
             ExtraMethodCase();
             PrepareBlackSilenceDeck(Model.Owner);

@@ -84,7 +84,8 @@ namespace SephiraModInit.Harmony
                 new CardOptions(9910004, CardOption.NoInventory, isBaseGameCard: true),
                 new CardOptions(9910005, CardOption.NoInventory, isBaseGameCard: true),
                 new CardOptions(30, CardOption.EgoPersonal),
-                new CardOptions(31, CardOption.Personal,cardColorOptions:new CardColorOptions(Color.gray,iconColor:new HSVColor(0,0,74)))
+                new CardOptions(31, CardOption.Personal,
+                    cardColorOptions: new CardColorOptions(Color.gray, iconColor: new HSVColor(0, 0, 74)))
             });
         }
 
@@ -107,7 +108,7 @@ namespace SephiraModInit.Harmony
                 }, chainReleasePassives: new List<LorId>
                 {
                     new LorId(SephiraModParameters.KamiyoModPackPackageId, 61)
-                },passiveColorOptions:new PassiveColorOptions(Color.gray,Color.gray))
+                }, passiveColorOptions: new PassiveColorOptions(Color.gray, Color.gray))
             });
         }
 
@@ -128,7 +129,7 @@ namespace SephiraModInit.Harmony
                 new KeypageOptions(10000004, false, everyoneCanEquip: true, editErrorMessageId: "EditError_Se21341",
                     bookCustomOptions: new BookCustomOptions(nameTextId: 4, customFaceData: false,
                         customDialogId: new LorId(SephiraModParameters.PackageId, 10000006))),
-                new KeypageOptions(10000006,keypageColorOptions:new KeypageColorOptions(Color.gray,Color.gray))
+                new KeypageOptions(10000006, keypageColorOptions: new KeypageColorOptions(Color.gray, Color.gray))
             });
         }
 

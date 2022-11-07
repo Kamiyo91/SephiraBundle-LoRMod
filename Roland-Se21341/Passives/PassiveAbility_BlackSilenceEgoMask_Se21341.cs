@@ -14,6 +14,7 @@ namespace SephiraModInit.Roland_Se21341.Passives
         public override void OnEndBattle(BattlePlayingCardDataInUnitModel curCard)
         {
             if (curCard != null) Util.ExtraMethodCase();
+            base.OnEndBattle(curCard);
         }
     }
 }
