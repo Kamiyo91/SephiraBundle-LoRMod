@@ -31,7 +31,7 @@ namespace SephiraModInit.Models
                     new EgoOptions(new BattleUnitBuf_BlackSilenceEgoMask_Se21341(), "BlackSilence4", true,
                         isBaseGameSkin: true)
                 }
-            }, originalSkinName: "BlackSilence", egoMaps: new Dictionary<LorId, MapModel>
+            }, originalSkinName: "BlackSilence",originalSkinIsBaseGame:true, egoMaps: new Dictionary<LorId, MapModel>
             {
                 { new LorId(SephiraModParameters.PackageId, 30), SephiraModParameters.BlackSilenceMap }
             }, personalCards: new Dictionary<LorId, PersonalCardOptions>
