@@ -13,6 +13,12 @@ namespace SephiraModInit.Models
         public static MapModel BlackSilenceMap = new MapModel(typeof(BlackSilence_Se21341MapManager),
             "BlackSilenceMassEgo_Se21341", fy: 0.285f);
 
+        public static List<LorId> BlackSilencePassiveCards = new List<LorId>
+        {
+            new LorId(705206), new LorId(705208), new LorId(705207), new LorId(702312), new LorId(702311),
+            new LorId(705218)
+        };
+
         public static string Path { get; set; }
     }
 
@@ -28,10 +34,10 @@ namespace SephiraModInit.Models
                 },
                 {
                     1,
-                    new EgoOptions(new BattleUnitBuf_BlackSilenceEgoMask_Se21341(), "BlackSilence4", true,
+                    new EgoOptions(new BattleUnitBuf_BlackSilenceEgoMask_Se21341(), "BlackSilence4", true,additionalPassiveIds: new List<LorId>{new LorId(SephiraModParameters.PackageId,4)},
                         isBaseGameSkin: true)
                 }
-            }, originalSkinName: "BlackSilence",originalSkinIsBaseGame:true, egoMaps: new Dictionary<LorId, MapModel>
+            }, originalSkinName: "BlackSilence", originalSkinIsBaseGame: true, egoMaps: new Dictionary<LorId, MapModel>
             {
                 { new LorId(SephiraModParameters.PackageId, 30), SephiraModParameters.BlackSilenceMap }
             }, personalCards: new Dictionary<LorId, PersonalCardOptions>

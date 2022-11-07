@@ -84,6 +84,7 @@
     <Compile Include="Roland-Se21341\DiceEffects\FarAreaEffect_BlackSilenceCustomEgoAreaStrong_Se21341.cs" />
     <Compile Include="Roland-Se21341\MechUtil_Roland.cs" />
     <Compile Include="Roland-Se21341\Passives\PassiveAbility_BlackSilenceEgoMask_Se21341.cs" />
+    <Compile Include="Roland-Se21341\Passives\PassiveAbility_MaskPower_Se21341.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
