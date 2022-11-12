@@ -28,7 +28,7 @@ namespace SephiraModInit.CommonPassives
         public override void OnBattleEnd()
         {
             base.OnBattleEnd();
-            owner.UnitData.unitData.battleDialogModel = _dlg;
+            if(_dlg != null) owner.UnitData.unitData.battleDialogModel = _dlg;
         }
     }
 }
