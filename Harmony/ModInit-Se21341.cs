@@ -96,7 +96,7 @@ namespace SephiraModInit.Harmony
                 new PassiveOptions(1, false),
                 new PassiveOptions(2, false, bannedEgoFloorCards: true),
                 new PassiveOptions(3, false),
-                new PassiveOptions(4,passiveColorOptions: new PassiveColorOptions(Color.gray, Color.gray)),
+                new PassiveOptions(4, passiveColorOptions: new PassiveColorOptions(Color.gray, Color.gray)),
                 new PassiveOptions(10008, isBaseGamePassive: true, passiveScriptId: "Dialog_Se21341"),
                 new PassiveOptions(35, false),
                 new PassiveOptions(26, canBeUsedWithPassivesOne: new List<LorId>
