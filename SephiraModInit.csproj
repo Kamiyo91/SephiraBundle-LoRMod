@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="1BigDLL4221">
-      <HintPath>..\..\NewDLL\bin\Debug\1BigDLL4221.dll</HintPath>
+      <HintPath>..\..\NewDLL\bin\Release\1BigDLL4221.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -42,7 +42,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\CommonDLL\Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="MonoMod.Utils">
+    <Reference Include="MonoMod.Utils, Version=21.12.13.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\CommonDLL\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
