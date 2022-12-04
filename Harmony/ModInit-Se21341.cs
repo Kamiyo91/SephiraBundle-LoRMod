@@ -33,6 +33,7 @@ namespace SephiraModInit.Harmony
             SephiraModParameters.Path = Path.GetDirectoryName(
                 Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path));
             ModParameters.Path.Add(SephiraModParameters.PackageId, SephiraModParameters.Path);
+            ModParameters.Assemblies.Add(Assembly.GetExecutingAssembly());
             OnInitSprites();
             OnInitKeypages();
             OnInitCards();
