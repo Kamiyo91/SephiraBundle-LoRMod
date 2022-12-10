@@ -118,17 +118,17 @@ namespace SephiraModInit.Harmony
         {
             ModParameters.KeypageOptions.Add(SephiraModParameters.PackageId, new List<KeypageOptions>
             {
-                new KeypageOptions(10000001, false, everyoneCanEquip: true, editErrorMessageId: "EditError_Se21341",
+                new KeypageOptions(10000001, everyoneCanEquip: true,/* editErrorMessageId: "EditError_Se21341",*/
                     bookCustomOptions: new BookCustomOptions(nameTextId: 1, customFaceData: false,
                         customDialogId: new LorId(10))),
-                new KeypageOptions(10000002, false, everyoneCanEquip: true, editErrorMessageId: "EditError_Se21341",
+                new KeypageOptions(10000002, everyoneCanEquip: true,/* editErrorMessageId: "EditError_Se21341",*/
                     bannedEgoFloorCards: true,
                     bookCustomOptions: new BookCustomOptions(nameTextId: 2, customFaceData: false,
                         customDialogId: new LorId(6))),
-                new KeypageOptions(10000003, false, everyoneCanEquip: true, editErrorMessageId: "EditError_Se21341",
+                new KeypageOptions(10000003, everyoneCanEquip: true, /*editErrorMessageId: "EditError_Se21341",*/
                     bookCustomOptions: new BookCustomOptions(nameTextId: 3, customFaceData: false,
                         customDialogId: new LorId(8))),
-                new KeypageOptions(10000004, false, everyoneCanEquip: true, editErrorMessageId: "EditError_Se21341",
+                new KeypageOptions(10000004, everyoneCanEquip: true, /*editErrorMessageId: "EditError_Se21341",*/
                     bookCustomOptions: new BookCustomOptions(nameTextId: 4, customFaceData: false,
                         customDialogId: new LorId(SephiraModParameters.PackageId, 10000006))),
                 new KeypageOptions(10000006, keypageColorOptions: new KeypageColorOptions(Color.gray, Color.gray))
