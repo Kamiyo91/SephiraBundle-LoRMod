@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using BigDLL4221.Enum;
 using BigDLL4221.Models;
@@ -15,6 +16,8 @@ namespace SephiraModInit.Harmony
     {
         public override void OnInitializeMod()
         {
+            if (AppDomain.CurrentDomain.GetAssemblies().Any(x => x.GetName().Name == "AphoNonUniqueKeyPages"))
+                SephiraModParameters.AphoNonUniqueKeyPagesFound = true;
             OnInitParameters();
             ArtUtil.GetArtWorks(new DirectoryInfo(SephiraModParameters.Path + "/ArtWork"));
             CardUtil.ChangeCardItem(ItemXmlDataList.instance, SephiraModParameters.PackageId);
@@ -77,17 +80,29 @@ namespace SephiraModInit.Harmony
 
         private static void OnInitCards()
         {
-            ModParameters.CardOptions.Add(SephiraModParameters.PackageId, new List<CardOptions>
+            if (SephiraModParameters.AphoNonUniqueKeyPagesFound)
             {
-                new CardOptions(9910001, CardOption.NoInventory, isBaseGameCard: true),
-                new CardOptions(9910002, CardOption.NoInventory, isBaseGameCard: true),
-                new CardOptions(9910003, CardOption.NoInventory, isBaseGameCard: true),
-                new CardOptions(9910004, CardOption.NoInventory, isBaseGameCard: true),
-                new CardOptions(9910005, CardOption.NoInventory, isBaseGameCard: true),
-                new CardOptions(30, CardOption.EgoPersonal),
-                new CardOptions(31, CardOption.Personal,
-                    cardColorOptions: new CardColorOptions(Color.gray, iconColor: new HSVColor(0, 0, 74)))
-            });
+                ModParameters.CardOptions.Add(SephiraModParameters.PackageId, new List<CardOptions>
+                {
+                    new CardOptions(30, CardOption.EgoPersonal),
+                    new CardOptions(31, CardOption.Personal,
+                        cardColorOptions: new CardColorOptions(Color.gray, iconColor: new HSVColor(0, 0, 74)))
+                });
+            }
+            else
+            {
+                ModParameters.CardOptions.Add(SephiraModParameters.PackageId, new List<CardOptions>
+                {
+                    new CardOptions(9910001, CardOption.NoInventory, isBaseGameCard: true),
+                    new CardOptions(9910002, CardOption.NoInventory, isBaseGameCard: true),
+                    new CardOptions(9910003, CardOption.NoInventory, isBaseGameCard: true),
+                    new CardOptions(9910004, CardOption.NoInventory, isBaseGameCard: true),
+                    new CardOptions(9910005, CardOption.NoInventory, isBaseGameCard: true),
+                    new CardOptions(30, CardOption.EgoPersonal),
+                    new CardOptions(31, CardOption.Personal,
+                        cardColorOptions: new CardColorOptions(Color.gray, iconColor: new HSVColor(0, 0, 74)))
+                });
+            }
         }
 
         private static void OnInitPassives()
@@ -118,10 +133,10 @@ namespace SephiraModInit.Harmony
         {
             ModParameters.KeypageOptions.Add(SephiraModParameters.PackageId, new List<KeypageOptions>
             {
-                new KeypageOptions(10000001, everyoneCanEquip: true,/* editErrorMessageId: "EditError_Se21341",*/
+                new KeypageOptions(10000001, everyoneCanEquip: true, /* editErrorMessageId: "EditError_Se21341",*/
                     bookCustomOptions: new BookCustomOptions(nameTextId: 1, customFaceData: false,
                         customDialogId: new LorId(10))),
-                new KeypageOptions(10000002, everyoneCanEquip: true,/* editErrorMessageId: "EditError_Se21341",*/
+                new KeypageOptions(10000002, everyoneCanEquip: true, /* editErrorMessageId: "EditError_Se21341",*/
                     bannedEgoFloorCards: true,
                     bookCustomOptions: new BookCustomOptions(nameTextId: 2, customFaceData: false,
                         customDialogId: new LorId(6))),

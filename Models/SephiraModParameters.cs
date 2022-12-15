@@ -19,6 +19,8 @@ namespace SephiraModInit.Models
             new LorId(705218)
         };
 
+        public static bool AphoNonUniqueKeyPagesFound = false;
+
         public static string Path { get; set; }
     }
 
