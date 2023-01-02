@@ -27,7 +27,6 @@ namespace SephiraModInit.Harmony
             LocalizeUtil.RemoveError();
             CardUtil.InitKeywordsList(new List<Assembly> { Assembly.GetExecutingAssembly() });
             ArtUtil.InitCustomEffects(new List<Assembly> { Assembly.GetExecutingAssembly() });
-            CustomMapHandler.ModResources.CacheInit.InitCustomMapFiles(Assembly.GetExecutingAssembly());
         }
 
         private static void OnInitParameters()
@@ -81,16 +80,13 @@ namespace SephiraModInit.Harmony
         private static void OnInitCards()
         {
             if (SephiraModParameters.AphoNonUniqueKeyPagesFound)
-            {
                 ModParameters.CardOptions.Add(SephiraModParameters.PackageId, new List<CardOptions>
                 {
                     new CardOptions(30, CardOption.EgoPersonal),
                     new CardOptions(31, CardOption.Personal,
                         cardColorOptions: new CardColorOptions(Color.gray, iconColor: new HSVColor(0, 0, 74)))
                 });
-            }
             else
-            {
                 ModParameters.CardOptions.Add(SephiraModParameters.PackageId, new List<CardOptions>
                 {
                     new CardOptions(9910001, CardOption.NoInventory, isBaseGameCard: true),
@@ -102,7 +98,6 @@ namespace SephiraModInit.Harmony
                     new CardOptions(31, CardOption.Personal,
                         cardColorOptions: new CardColorOptions(Color.gray, iconColor: new HSVColor(0, 0, 74)))
                 });
-            }
         }
 
         private static void OnInitPassives()

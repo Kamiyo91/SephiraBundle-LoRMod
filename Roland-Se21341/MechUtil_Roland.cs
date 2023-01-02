@@ -2,6 +2,7 @@
 using BigDLL4221.BaseClass;
 using BigDLL4221.Models;
 using LOR_DiceSystem;
+using SephiraModInit.Models;
 
 namespace SephiraModInit.Roland_Se21341
 {
@@ -10,7 +11,7 @@ namespace SephiraModInit.Roland_Se21341
         public bool EgoActivated;
         public new MechUtilBaseModel Model;
 
-        public MechUtil_Roland(MechUtilBaseModel model) : base(model)
+        public MechUtil_Roland(MechUtilBaseModel model) : base(model, SephiraModParameters.PackageId)
         {
             Model = model;
             EgoActivated = false;
