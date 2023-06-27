@@ -1,41 +1,11 @@
 ﻿using System.Linq;
-using BigDLL4221.BaseClass;
-using BigDLL4221.Models;
 using LOR_DiceSystem;
-using SephiraModInit.Models;
 
 namespace SephiraModInit.Roland_Se21341
 {
-    public class MechUtil_Roland : MechUtilBase
+    public static class BlackSilenceUtil
     {
-        public bool EgoActivated;
-        public new MechUtilBaseModel Model;
-
-        public MechUtil_Roland(MechUtilBaseModel model) : base(model, SephiraModParameters.PackageId)
-        {
-            Model = model;
-            EgoActivated = false;
-        }
-
-        public override void ExtraMethodCase()
-        {
-            if (!EgoActivated) return;
-            Model.Owner.view.charAppearance.SetAltMotion(ActionDetail.Default, ActionDetail.S13);
-            Model.Owner.view.charAppearance.SetAltMotion(ActionDetail.Standing, ActionDetail.S13);
-        }
-
-        public override bool EgoActive()
-        {
-            var egoActivated = base.EgoActive();
-            if (!egoActivated) return true;
-            if (Model.EgoPhase != 1) return true;
-            EgoActivated = true;
-            ExtraMethodCase();
-            PrepareBlackSilenceDeck(Model.Owner);
-            return true;
-        }
-
-        public static void PrepareBlackSilenceDeck(BattleUnitModel owner)
+        public static void PrepareBlackSilenceDeck(this BattleUnitModel owner)
         {
             var furiosoCard = owner.personalEgoDetail.GetCardAll()
                 .FirstOrDefault(x => x.GetID().IsBasic() && x.GetID().id == 702010);

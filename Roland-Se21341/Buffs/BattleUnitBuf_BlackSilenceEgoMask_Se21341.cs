@@ -1,17 +1,11 @@
-﻿using BigDLL4221.Buffs;
-using SephiraModInit.Models;
-using Sound;
+﻿using Sound;
+using UtilLoader21341.Util;
 
 namespace SephiraModInit.Roland_Se21341.Buffs
 {
-    public class BattleUnitBuf_BlackSilenceEgoMask_Se21341 : BattleUnitBuf_BaseBufChanged_DLL4221
+    public class BattleUnitBuf_BlackSilenceEgoMask_Se21341 : BattleUnitBuf
     {
-        public BattleUnitBuf_BlackSilenceEgoMask_Se21341() : base(lastOneScene: false, infinite: true)
-        {
-        }
-
-        public override int MinStack => 1;
-        public override int MaxStack => 3;
+        public int MaxStack => 3;
         protected override string keywordId => "BlackSilenceEgo_Se21341";
         protected override string keywordIconId => "BlackFrantic";
         public override bool isAssimilation => true;
@@ -30,6 +24,11 @@ namespace SephiraModInit.Roland_Se21341.Buffs
         public override void OnUseCard(BattlePlayingCardDataInUnitModel card)
         {
             if (card.card.GetID() == new LorId(SephiraModParameters.PackageId, 30)) OnAddBuf(1);
+        }
+
+        public override void OnAddBuf(int addedStack)
+        {
+            this.OnAddBufCustom(addedStack, maxStack: MaxStack);
         }
     }
 }

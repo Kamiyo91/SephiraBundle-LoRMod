@@ -1,14 +1,17 @@
-﻿using BigDLL4221.Passives;
-using SephiraModInit.Models;
+﻿using UtilLoader21341.Util;
 
 namespace SephiraModInit.Roland_Se21341.Passives
 {
-    public class PassiveAbility_MaskPower_Se21341 : PassiveAbility_DrawSpecialCards_DLL4221
+    public class PassiveAbility_MaskPower_Se21341 : PassiveAbilityBase
     {
-        public override void Init(BattleUnitModel self)
+        public override void OnRoundStartAfter()
         {
-            base.Init(self);
-            SetCards(SephiraModParameters.BlackSilencePassiveCards);
+            this.OnRoundStartAfterSpecialDraw(SephiraModParameters.BlackSilencePassiveCards);
+        }
+
+        public override void OnUseCard(BattlePlayingCardDataInUnitModel curCard)
+        {
+            this.OnUseCardSpecialDraw(curCard);
         }
     }
 }

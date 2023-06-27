@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using BigDLL4221.Models;
+﻿using UtilLoader21341.Util;
 
 namespace SephiraModInit.CommonPassives
 {
@@ -10,19 +9,7 @@ namespace SephiraModInit.CommonPassives
         public override void OnWaveStart()
         {
             base.OnWaveStart();
-            if (!ModParameters.KeypageOptions.TryGetValue(owner.Book.BookId.packageId, out var keypageOptions)) return;
-            var keypageItem = keypageOptions.FirstOrDefault(x => x.KeypageId == owner.Book.BookId.id);
-            if (keypageItem?.BookCustomOptions == null) return;
-            _dlg = owner.UnitData.unitData.battleDialogModel;
-            if (keypageItem.BookCustomOptions.CustomDialogId != null)
-            {
-                owner.UnitData.unitData.InitBattleDialogByDefaultBook(keypageItem.BookCustomOptions.CustomDialogId);
-                return;
-            }
-
-            if (keypageItem.BookCustomOptions.CustomDialog == null) return;
-            owner.UnitData.unitData.battleDialogModel =
-                new BattleDialogueModel(keypageItem.BookCustomOptions.CustomDialog);
+            this.OnWaveStartChangeDialog(ref _dlg);
         }
 
         public override void OnBattleEnd()

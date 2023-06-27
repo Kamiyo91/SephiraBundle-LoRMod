@@ -31,23 +31,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="1BigDLL4221">
-      <HintPath>..\..\NewDLL\bin\Release\1BigDLL4221.dll</HintPath>
+    <Reference Include="1UtilLoader21341">
+      <HintPath>..\UtilLoader\UtilLoader21341\bin\Release\1UtilLoader21341.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="CustomMapUtility">
-      <HintPath>..\..\CommonDLL\CustomMapUtility.dll</HintPath>
+      <HintPath>..\CommonDLL\CustomMapUtility.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Cecil, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CommonDLL\Mono.Cecil.dll</HintPath>
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\CommonDLL\Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="MonoMod.Utils, Version=21.12.13.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CommonDLL\MonoMod.Utils.dll</HintPath>
+    <Reference Include="MonoMod.Utils">
+      <HintPath>..\CommonDLL\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,10 +67,9 @@
     <Compile Include="Angela-Se21341\Passives\PassiveAbility_AngelaUnit_Se21341.cs" />
     <Compile Include="Angela-Se21341\Passives\PassiveAbility_DoubleEmotion_Se21341.cs" />
     <Compile Include="Binah-Se21341\Passives\PassiveAbility_FragmentOfAnArbiterBinah_Se21341.cs" />
+    <Compile Include="Roland-Se21341\BlackSilenceUtil.cs" />
     <Compile Include="CommonPassives\PassiveAbility_Dialog_Se21341.cs" />
     <Compile Include="CommonPassives\PassiveAbility_NotEquip_Se21341.cs" />
-    <Compile Include="Harmony\ModInit-Se21341.cs" />
-    <Compile Include="Models\SephiraModParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roland-Se21341\BlackSilence_Se21341MapManager.cs" />
     <Compile Include="Roland-Se21341\Buffs\BattleUnitBuf_BlackSilenceEgoMask_Se21341.cs" />
@@ -86,9 +83,9 @@
     <Compile Include="Roland-Se21341\DiceEffects\BehaviourAction_BlackSilence_SpecialDurandal_Ego_Se21341.cs" />
     <Compile Include="Roland-Se21341\DiceEffects\FarAreaEffect_BlackSilenceCustomEgoAreaStrongFinal_Se21341.cs" />
     <Compile Include="Roland-Se21341\DiceEffects\FarAreaEffect_BlackSilenceCustomEgoAreaStrong_Se21341.cs" />
-    <Compile Include="Roland-Se21341\MechUtil_Roland.cs" />
     <Compile Include="Roland-Se21341\Passives\PassiveAbility_BlackSilenceEgoMask_Se21341.cs" />
     <Compile Include="Roland-Se21341\Passives\PassiveAbility_MaskPower_Se21341.cs" />
+    <Compile Include="SephiraModParameters.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
