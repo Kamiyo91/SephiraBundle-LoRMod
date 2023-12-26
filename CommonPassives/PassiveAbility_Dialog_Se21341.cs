@@ -9,7 +9,7 @@ namespace SephiraModInit.CommonPassives
         public override void OnWaveStart()
         {
             base.OnWaveStart();
-            this.OnWaveStartChangeDialog(ref _dlg);
+            this.OnWaveStartChangeDialog(ref _dlg, false);
         }
 
         public override void OnBattleEnd()

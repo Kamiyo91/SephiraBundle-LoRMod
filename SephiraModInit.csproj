@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="1UtilLoader21341">
-      <HintPath>..\UtilLoader\UtilLoader21341\bin\Release\1UtilLoader21341.dll</HintPath>
+      <HintPath>..\LoaderDLL\bin\Release\1UtilLoader21341.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
