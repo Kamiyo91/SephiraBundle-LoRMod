@@ -23,12 +23,8 @@ namespace SephiraModInit.Roland_Se21341.Buffs
 
         public override void OnUseCard(BattlePlayingCardDataInUnitModel card)
         {
-            if (card.card.GetID() == new LorId(SephiraModParameters.PackageId, 30)) OnAddBuf(1);
-        }
-
-        public override void OnAddBuf(int addedStack)
-        {
-            this.OnAddBufCustom(addedStack, maxStack: MaxStack);
+            if (card.card.GetID() == new LorId(SephiraModParameters.PackageId, 30))
+                this.AddBufCustom(1, maxStack: MaxStack);
         }
     }
 }
